@@ -2,6 +2,7 @@
 
 namespace CodeFlix\Http\Controllers\Admin;
 
+use CodeFlix\Forms\UserForm;
 use CodeFlix\Models\User;
 use Illuminate\Http\Request;
 use CodeFlix\Http\Controllers\Controller;
@@ -15,7 +16,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate();
+        return view('admin.users.index',compact('users'));
     }
 
     /**
@@ -25,18 +27,30 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $form = \FormBuilder::create(UserForm::class, [
+            'url' => route('admin.users.store'),
+            'method' => 'POST'
+        ]);
+        return view('admin.users.create', compact('form'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $form = \FormBuilder::create(UserForm::class);
+        if(!$form->isValid()){
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+        $data = $form->getFieldValues();
+        $data['role'] = User::ROLE_ADMIN;
+        $data['password'] = User::generatePassword();
+        User::create($data);
+        $request->session()->flash('success', 'Usuário criado com sucesso!');
+        return redirect()->route('admin.users.index');
     }
 
     /**

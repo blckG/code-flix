@@ -3,6 +3,7 @@
 namespace CodeFlix\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Bootstrapper\Form;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +28,20 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment() !== 'production'){
             $this->app->register(IdeHelperServiceProvider::class);
         }
+
+        $this->app->bind(
+            'bootstrapper::form',
+            function ($app) {
+                $form = new Form(
+                    $app->make('collective::html'),
+                    $app->make('url'),
+                    $app->make('view'),
+                    $app['session.store']->token()
+                );
+
+                return $form->setSessionStore($app['session.store']);
+            },
+            true
+        );
     }
 }

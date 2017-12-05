@@ -69,7 +69,11 @@
                 </div>
             </div>
         </nav>
-
+        @if(Session::has('success'))
+            <div class="container">
+                {!! Alert::success(Session::get('success'))->close() !!}
+            </div>
+        @endif
         @yield('content')
     </div>
 
