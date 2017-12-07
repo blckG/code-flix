@@ -20,6 +20,7 @@
     if (Auth::check()) {
         $arrayLinks = [
             ['link' => route('admin.users.index'), 'title' => 'Usuário'],
+            ['link' => route('admin.categories.index'), 'title' => 'Categorias'],
         ];
         $menus = Navigation::links($arrayLinks);
         $logout = Navigation::links([
@@ -28,7 +29,7 @@
                 [
                     [
                         'link' => route('admin.users.change-password'),
-                        'title' => 'Altarar senha'
+                        'title' => 'Redefinir senha'
                     ],
 
                     [

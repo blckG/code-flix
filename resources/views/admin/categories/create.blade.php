@@ -4,8 +4,8 @@
     <div class="container">
 
         <div class="row">
-            <h3>Redefinir senha</h3>
-            <?php $icon = Icon::create('pencil'); ?>
+            <h3>Nova categoria</h3>
+            <?php $icon = Icon::create('floppy-disk'); ?>
             {!!
                 form($form->add('salve', 'submit', [
                     'attr' => ['class' => 'btn btn-primary btn-block'],

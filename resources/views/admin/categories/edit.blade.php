@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="row">
-            <h3>Redefinir senha</h3>
+            <h3>Editar categoria</h3>
             <?php $icon = Icon::create('pencil'); ?>
             {!!
                 form($form->add('salve', 'submit', [
