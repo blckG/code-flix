@@ -26,15 +26,22 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
     ->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+Route::get('email-verification/error', 'EmailVerificationController@getVerificationError')
+    ->name('email-verification.error');
+Route::get('email-verification/check/{token}', 'EmailVerificationController@getVerification')
+    ->name('email-verification.check');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], function(){
-    Route::group(['middleware' => 'can:admin'], function(){
+    Route::group(['middleware' => ['isVerified', 'can:admin']], function(){
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
         Route::get('dashboard', function(){
            return view('admin.dashboard');
         });
 
+        Route::get('users/change-password', 'UsersController@changePassword')->name('users.change-password');
+        Route::put('users/change-password', 'UsersController@updatePassword')->name('users.update-password');
         Route::resource('users', 'UsersController');
 
     });

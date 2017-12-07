@@ -2,6 +2,8 @@
 
 namespace CodeFlix\Http\Controllers\Admin;
 
+use CodeFlix\Contracts\Repositories\UserRepository;
+use CodeFlix\Forms\PasswordForm;
 use CodeFlix\Forms\UserForm;
 use CodeFlix\Models\User;
 use Illuminate\Http\Request;
@@ -10,14 +12,24 @@ use CodeFlix\Http\Controllers\Controller;
 class UsersController extends Controller
 {
     /**
+     * @var UserRepository
+     */
+    private $repository;
+
+    public function __construct(UserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::paginate();
-        return view('admin.users.index',compact('users'));
+        $users = $this->repository->paginate();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -42,13 +54,11 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $form = \FormBuilder::create(UserForm::class);
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
         $data = $form->getFieldValues();
-        $data['role'] = User::ROLE_ADMIN;
-        $data['password'] = User::generatePassword();
-        User::create($data);
+        $this->repository->create($data);
         $request->session()->flash('success', 'Usuário criado com sucesso!');
         return redirect()->route('admin.users.index');
     }
@@ -56,7 +66,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \CodeFlix\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -67,7 +77,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \CodeFlix\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -83,21 +93,19 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \CodeFlix\Models\User  $user
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         $form = \FormBuilder::create(UserForm::class, [
-            'data' => ['id' => $user->id]
+            'data' => ['id' => $id]
         ]);
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
         $data = array_except($form->getFieldValues(), ['password', 'role']);
-        $user->fill($data);
-        $user->save();
+        $this->repository->update($data, $id);
         $request->session()->flash('success', 'Usuário alterado com sucesso!');
         return redirect()->route('admin.users.index');
     }
@@ -105,13 +113,33 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \CodeFlix\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
+        $this->repository->delete($id);
         \Session::flash('success', 'Usuário removido com sucesso!');
+        return redirect()->route('admin.users.index');
+    }
+
+    public function changePassword()
+    {
+        $form = \FormBuilder::create(PasswordForm::class, [
+            'url' => route('admin.users.update-password'),
+            'method' => 'PUT'
+        ]);
+        return view('admin.users.change-password', compact('form'));
+    }
+
+    public function updatePassword()
+    {
+        $form = \FormBuilder::create(PasswordForm::class);
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+        $data = array_only($form->getFieldValues(), ['password']);
+        $this->repository->updatePassword($data, \Auth::user()->id);
+        \Session::flash('success', 'Senha alterada com sucesso!');
         return redirect()->route('admin.users.index');
     }
 }
