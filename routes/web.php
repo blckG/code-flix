@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::put('users/change-password', 'UsersController@updatePassword')->name('users.update-password');
         Route::resource('users', 'UsersController');
         Route::resource('categories', 'CategoriesController');
+        Route::resource('series', 'SeriesController');
 
     });
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
