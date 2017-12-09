@@ -5,7 +5,7 @@
 
         <div class="row">
             @component('admin.videos.tabs-component', ['video' => $form->getModel()])
-            <h3>Editar vídeo</h3>
+            <h3>Série e categorias</h3>
             <?php $icon = Icon::create('pencil'); ?>
             {!!
                 form($form->add('salve', 'submit', [
