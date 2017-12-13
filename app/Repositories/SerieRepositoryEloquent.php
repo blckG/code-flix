@@ -23,6 +23,15 @@ class SerieRepositoryEloquent extends BaseRepository implements SerieRepository
         return $model;
     }
 
+    public function update(array $attributes, $id)
+    {
+        $model = parent::update(array_except($attributes, 'thumb_file'), $id);
+        if(isset($attributes['thumb_file'])) {
+            $this->uploadThumb($model->id, $attributes['thumb_file']);
+        }
+        return $model;
+    }
+
     /**
      * Specify Model class name
      *

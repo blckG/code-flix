@@ -89,7 +89,8 @@ class SeriesController extends Controller
         $form = \FormBuilder::create(SerieForm::class, [
             'url' => route('admin.series.update', ['serie' => $series->id]),
             'method' => 'PUT',
-            'model' => $series
+            'model' => $series,
+            'data' => ['id' => $series->id]
         ]);
         return view('admin.series.edit', compact('form'));
     }
@@ -103,11 +104,13 @@ class SeriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $form = \FormBuilder::create(SerieForm::class);
+        $form = \FormBuilder::create(SerieForm::class, [
+            'data' => ['id' => $id]
+        ]);
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
-        $data = $form->getFieldValues();
+        $data = array_except($form->getFieldValues(), 'thumb');
         $this->repository->update($data, $id);
         $request->session()->flash('success', "Série <b>{$data['title']}</b> editada com sucesso!");
         return redirect()->route('admin.series.index');

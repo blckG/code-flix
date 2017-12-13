@@ -15,7 +15,8 @@ class Serie extends Model implements Transformable, TableInterface
 
     protected $fillable = [
         'title',
-        'description'
+        'description',
+        'thumb'
     ];
 
     /**
