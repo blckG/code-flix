@@ -44,6 +44,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::put('users/change-password', 'UsersController@updatePassword')->name('users.update-password');
         Route::resource('users', 'UsersController');
         Route::resource('categories', 'CategoriesController');
+        Route::get('series/{serie}/thumb-asset', 'SeriesController@thumbAsset')->name('series.thumb-asset');
+        Route::get('series/{serie}/thumb-small-asset', 'SeriesController@thumbSmallAsset')
+            ->name('series.thumb-small-asset');
         Route::resource('series', 'SeriesController');
         Route::group(['prefix' => 'videos', 'as' => 'videos.'], function(){
             Route::get('{video}/relations', 'VideoRelationsController@create')->name('relations.create');

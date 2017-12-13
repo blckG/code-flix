@@ -33,4 +33,14 @@ trait SeriePaths
     {
         return $this->getAbsolutePath($this->getStorage(), $this->thumb_small_relative);
     }
+
+    public function getThumbAssetAttribute()
+    {
+        return route('admin.series.thumb-asset', ['serie' => $this->id]);
+    }
+
+    public function getThumbSmallAssetAttribute()
+    {
+        return route('admin.series.thumb-small-asset', ['serie' => $this->id]);
+    }
 }

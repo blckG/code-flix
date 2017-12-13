@@ -25,7 +25,7 @@ class Serie extends Model implements Transformable, TableInterface
      */
     public function getTableHeaders()
     {
-       return ['#', 'Titulo', 'Descrição'];
+       return ['#'];
     }
 
     /**
@@ -40,10 +40,6 @@ class Serie extends Model implements Transformable, TableInterface
         switch ($header) {
             case '#':
                 return $this->id;
-            case 'Titulo':
-                return $this->title;
-            case 'Descrição':
-                return $this->description;
         }
     }
 }
