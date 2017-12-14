@@ -51,6 +51,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::group(['prefix' => 'videos', 'as' => 'videos.'], function(){
             Route::get('{video}/relations', 'VideoRelationsController@create')->name('relations.create');
             Route::post('{video}/relations', 'VideoRelationsController@store')->name('relations.store');
+            Route::get('{video}/uploads', 'VideoUploadsController@create')->name('uploads.create');
+            Route::post('{video}/uploads', 'VideoUploadsController@store')->name('uploads.store');
         });
         Route::resource('videos', 'VideosController');
 

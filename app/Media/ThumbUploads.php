@@ -48,7 +48,7 @@ trait ThumbUploads
     {
         /** @var FilesystemAdapter $storage */
         $storage = $model->getStorage();
-        if($storage->exists($model->thumb_relative) && $model->thumb != env('SERIE_NO_THUMB')) {
+        if($storage->exists($model->thumb_relative) && $model->thumb != $model->thumb_default) {
             $storage->delete([$model->thumb_relative, $model->thumb_small_relative]);
         }
     }
