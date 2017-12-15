@@ -12,4 +12,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface VideoRepository extends RepositoryInterface
 {
     public function uploadThumb($id, UploadedFile $file);
+    public function uploadFile($id, UploadedFile $file);
 }
