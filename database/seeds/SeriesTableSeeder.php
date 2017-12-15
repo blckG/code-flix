@@ -12,7 +12,7 @@ class SeriesTableSeeder extends Seeder
     public function run()
     {
         /** @var \Illuminate\Database\Eloquent\Collection $series */
-        $series = factory(\CodeFlix\Models\Serie::class, 5)->create();
+        $series = factory(\CodeFlix\Models\Serie::class, 1)->create();
         $repository = app(\CodeFlix\Contracts\Repositories\SerieRepository::class);
         $collectionThumbs = $this->getThumbs();
         $series->each(function($serie) use ($repository, $collectionThumbs){

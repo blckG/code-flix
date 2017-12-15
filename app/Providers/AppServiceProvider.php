@@ -4,6 +4,7 @@ namespace CodeFlix\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Bootstrapper\Form;
+use CodeFlix\Models\Video;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +16,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Video::updated(function($video){
+            if(!$video->completed){
+                if($video->file != null && $video->thumb != null) {
+                    $video->completed = 1;
+                    $video->save();
+                }
+            }
+        });
     }
 
     /**

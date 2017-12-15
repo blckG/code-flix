@@ -54,6 +54,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
             Route::get('{video}/uploads', 'VideoUploadsController@create')->name('uploads.create');
             Route::post('{video}/uploads', 'VideoUploadsController@store')->name('uploads.store');
         });
+        Route::get('videos/{video}/file-asset', 'VideosController@fileAsset')
+            ->name('videos.file-asset');
         Route::resource('videos', 'VideosController');
 
     });
