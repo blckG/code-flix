@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::put('users/change-password', 'UsersController@updatePassword')->name('users.update-password');
         Route::resource('users', 'UsersController');
         Route::resource('categories', 'CategoriesController');
+
         Route::get('series/{serie}/thumb-asset', 'SeriesController@thumbAsset')->name('series.thumb-asset');
         Route::get('series/{serie}/thumb-small-asset', 'SeriesController@thumbSmallAsset')
             ->name('series.thumb-small-asset');
@@ -54,8 +55,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
             Route::get('{video}/uploads', 'VideoUploadsController@create')->name('uploads.create');
             Route::post('{video}/uploads', 'VideoUploadsController@store')->name('uploads.store');
         });
+
         Route::get('videos/{video}/file-asset', 'VideosController@fileAsset')
             ->name('videos.file-asset');
+        Route::get('videos/{video}/thumb-asset', 'VideosController@thumbAsset')->name('videos.thumb-asset');
+        Route::get('videos/{video}/thumb-small-asset', 'VideosController@thumbSmallAsset')
+            ->name('videos.thumb-small-asset');
         Route::resource('videos', 'VideosController');
 
     });

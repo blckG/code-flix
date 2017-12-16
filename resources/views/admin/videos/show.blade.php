@@ -25,6 +25,14 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
+                    <th scope="row">Thumb</th>
+                    <td><img src="{{$video->thumb_asset}}" width="560" height="360"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Download</th>
+                    <td><a href="{{$video->file_asset}}">Download</a></td>
+                </tr>
+                <tr>
                     <th scope="row">#</th>
                     <td>{{$video->id}}</td>
                 </tr>

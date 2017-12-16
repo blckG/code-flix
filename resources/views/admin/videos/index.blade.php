@@ -11,7 +11,7 @@
                 Table::withContents($videos->items())->striped()
                     ->callback('Descrição', function ($field, $video){
                         return MediaObject::withContents([
-                            'image' => $video->thumb_small_path,
+                            'image' => $video->thumb_small_asset,
                             'link' => $video->file_path,
                             'heading' => $video->title,
                             'body' => $video->description

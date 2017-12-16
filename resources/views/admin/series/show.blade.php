@@ -25,6 +25,10 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
+                    <th scope="row">Thumb</th>
+                    <td><img src="{{$serie->thumb_asset}}" width="560" height="360"></td>
+                </tr>
+                <tr>
                     <th scope="row">#</th>
                     <td>{{$serie->id}}</td>
                 </tr>

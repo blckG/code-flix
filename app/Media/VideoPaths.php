@@ -42,4 +42,18 @@ trait VideoPaths
         }
         return false;
     }
+
+    public function getThumbAssetAttribute()
+    {
+        return $this->isLocalDriver() ?
+            route('admin.videos.thumb-asset', ['video' => $this->id]) :
+            $this->thumb_path;
+    }
+
+    public function getThumbSmallAssetAttribute()
+    {
+        return $this->isLocalDriver() ?
+            route('admin.videos.thumb-small-asset', ['video' => $this->id]) :
+            $this->thumb_small_path;
+    }
 }
