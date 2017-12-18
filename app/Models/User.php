@@ -6,9 +6,10 @@ use Bootstrapper\Interfaces\TableInterface;
 use CodeFlix\Notifications\DefaultResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
-class User extends Authenticatable implements TableInterface
+class User extends Authenticatable implements TableInterface, JWTSubject
 {
     use Notifiable;
 
@@ -50,8 +51,8 @@ class User extends Authenticatable implements TableInterface
      */
     public function getTableHeaders()
     {
-       return ['#', 'Nome', 'E-mail'];
-    }
+     return ['#', 'Nome', 'E-mail'];
+ }
 
     /**
      * Get the value for a given header. Note that this will be the value
@@ -64,11 +65,27 @@ class User extends Authenticatable implements TableInterface
     {
         switch ($header){
             case '#':
-                return $this->id;
+            return $this->id;
             case 'Nome':
-                return $this->name;
+            return $this->name;
             case 'E-mail':
-                return $this->email;
+            return $this->email;
         }
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->id;
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [
+            'user' => [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email
+            ]
+        ];
     }
 }
