@@ -14,5 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+	return $request->user();
+});
+
+ApiRoute::version('v1', function(){
+	ApiRoute::get('teste', function(){
+		return "Api!!!";
+	});
 });
