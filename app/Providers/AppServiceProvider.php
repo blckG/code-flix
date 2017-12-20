@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if($this->app->environment() !== 'production'){
             $this->app->register(IdeHelperServiceProvider::class);
+            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
         }
 
         $this->app->bind(
@@ -56,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
 
         $handlerApi = app(Handler::class);
         $handlerApi->register(function(AuthenticationException $exception){
-           return response()->json(['error' => 'Unauthenticated'], 401);
-        });
+         return response()->json(['error' => 'Unauthenticated'], 401);
+     });
     }
 }
