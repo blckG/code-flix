@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="row">
-            <h3>Categoria: {{$category->name}}</h3>
+            <h3>Ver categoria</h3>
             {!! Button::primary('Ver categoria')->asLinkTo(route('admin.categories.edit', ['category' => $category])) !!}
             {!!
                 Button::danger('Remover categoria')

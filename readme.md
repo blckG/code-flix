@@ -30,3 +30,26 @@ Nesta primeira fase, você deverá implementar:
 * A administração de categorias. Cada categoria terá id e name.
 
 Faça todas as implementações usando repositórios e acrescente a barra de menus com os links necessários.
+
+
+### Construção da API e Testes Automizados
+#### Primeira parte:
+Você deverá implementar toda autenticação com JWT mostrada há 2 capítulos, incluindo logout e o auto-refresh token. 
+
+Disponibilize um endpoint para mostrar o usuário autenticado (/api/user), este endpoint deverá ser protegido, ou seja, somente usuários autenticados poderão acessa-los.
+
+Além disto, você deverá criar outro endpoint para listar todas as categorias de vídeo (/api/categories).
+
+#### Segunda parte:
+Você deverá implementar testes para:
+
+**Testes HTTP:**
+
+* Verificar a autenticação JWT
+* Verificar o logout (use o status code da resposta para averiguar se o token foi invalidado)
+* Verificar o refresh token
+* Verificar a resposta do endpoint (/api/categories)
+
+**Testes no Browser**
+
+* Testar as 4 operações do CRUD de categorias: Create, Retrieve (show), Update e Delete.
