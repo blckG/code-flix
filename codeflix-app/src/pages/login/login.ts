@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {HttpClient} from "@angular/common/http";
 import "rxjs/add/operator/toPromise";
+import {JwtClient} from "../../providers/jwt-client";
 
 
 /**
@@ -20,7 +20,7 @@ export class LoginPage {
     email: string;
     password: string;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private jwtClient: JwtClient) {
     }
 
     ionViewDidLoad() {
@@ -28,13 +28,10 @@ export class LoginPage {
     }
 
     login() {
-        this.http.post('http://localhost:8000/api/access_token', {
-            email: this.email,
-            password: this.password
-        })
-            .toPromise()
-            .then((response) =>{
-                console.log(response);
+        this.jwtClient
+            .accessToken({email: this.email, password: this.password})
+            .then((token) => {
+                console.log(token);
             });
     }
 

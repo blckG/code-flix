@@ -10,6 +10,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {HttpClientModule} from "@angular/common/http";
+import {JwtClient} from "../providers/jwt-client";
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import {HttpClientModule} from "@angular/common/http";
     providers: [
         StatusBar,
         SplashScreen,
+        JwtClient,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })
