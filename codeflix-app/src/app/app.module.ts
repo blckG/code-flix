@@ -11,6 +11,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {HttpClientModule} from "@angular/common/http";
 import {JwtClient} from "../providers/jwt-client";
+import {IonicStorageModule} from "@ionic/storage";
 
 @NgModule({
     declarations: [
@@ -23,6 +24,9 @@ import {JwtClient} from "../providers/jwt-client";
         BrowserModule,
         HttpClientModule,
         IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot({
+            driverOrder: ['localstorage']
+        })
     ],
     bootstrap: [IonicApp],
     entryComponents: [
