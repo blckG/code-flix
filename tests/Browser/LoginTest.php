@@ -16,21 +16,21 @@ class LoginTest extends DuskTestCase
      */
     public function testLoginFailed()
     {
-        //Login Failed
+        //LoginPage Failed
         $this->browse(function (Browser $browser) {
             $browser->visit('admin/login')
             ->type('email', 'admin1@user.com')
             ->type('password', '123456789')
-            ->press('Login')
-            ->assertSee('Login');
+            ->press('LoginPage')
+            ->assertSee('LoginPage');
         });
 
-        //Login Success
+        //LoginPage Success
         $this->browse(function (Browser $browser) {
             $browser->visit('admin/login')
             ->type('email', 'admin@user.com')
             ->type('password', '123456')
-            ->press('Login')
+            ->press('LoginPage')
             ->assertPathIs('/admin/dashboard');
         });
     }
