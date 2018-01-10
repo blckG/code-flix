@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {JwtCredentials} from "../models/jwt-credentials";
 import {Storage} from "@ionic/storage";
+import {JwtHelper} from "angular2-jwt";
 
 
 /*
@@ -14,7 +15,11 @@ import {Storage} from "@ionic/storage";
 export class JwtClient {
 
     private _token = null;
-    constructor(public http: HttpClient, public storage: Storage) {}
+    private _payload = null;
+
+    constructor(public http: HttpClient, public storage: Storage, public jwtHelper: JwtHelper) {
+        this.getToken();
+    }
 
     accessToken(jwtCredientials: JwtCredentials): Promise<string> {
         return this.http.post('http://localhost:8000/api/access_token', jwtCredientials)
@@ -25,6 +30,32 @@ export class JwtClient {
                 this.storage.set('token', this._token);
                 return obj.token;
             });
+    }
+
+    getToken(): Promise<string>{
+        return new Promise((resolve) => {
+           if(this._token) {
+               resolve(this._token);
+           }
+           this.storage.get('token').then((token) => {
+               this._token = token;
+               resolve(this._token);
+           });
+        });
+    }
+
+    getPayload(): Promise<Object>{
+        return new Promise((resolve) => {
+            if(this._payload) {
+                resolve(this._payload);
+            }
+            this.getToken().then((token) => {
+                if(token){
+                    this._payload = this.jwtHelper.decodeToken(token);
+                }
+                resolve(this._payload);
+            })
+        });
     }
 
 }
