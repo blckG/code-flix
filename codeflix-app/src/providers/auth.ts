@@ -27,4 +27,15 @@ export class Auth {
       });
   }
 
+  login({email, password}): Promise<Object> {
+      return this.jwtClient.accessToken({email, password})
+          .then(() => {
+             return this.user();
+          });
+  }
+
+  logout(){
+    return this.jwtClient.revokeToken().then(() => {this._user = null});
+  }
+
 }

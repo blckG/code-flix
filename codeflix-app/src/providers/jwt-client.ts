@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {JwtCredentials} from "../models/jwt-credentials";
 import {Storage} from "@ionic/storage";
@@ -56,6 +56,19 @@ export class JwtClient {
                 resolve(this._payload);
             })
         });
+    }
+
+    revokeToken(): Promise<null>{
+        return this.http.post('http://localhost:8000/api/logout', {}, {
+            headers: new HttpHeaders().set('Authorization', `Bearer ${this._token}`)
+        })
+            .toPromise()
+            .then((response) => {
+               this._token = null;
+               this._payload = null;
+               this.storage.clear();
+               return null;
+            });
     }
 
 }
