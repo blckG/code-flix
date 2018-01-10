@@ -13,6 +13,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {JwtClient} from "../providers/jwt-client";
 import {IonicStorageModule} from "@ionic/storage";
 import {JwtHelper} from "angular2-jwt";
+import {Auth} from "../providers/auth";
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import {JwtHelper} from "angular2-jwt";
         StatusBar,
         SplashScreen,
         JwtClient,
+        Auth,
         JwtHelper,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
