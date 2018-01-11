@@ -1,9 +1,9 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {JwtCredentials} from "../models/jwt-credentials";
 import {Storage} from "@ionic/storage";
-import {JwtHelper} from "angular2-jwt";
+import {AuthHttp, JwtHelper} from "angular2-jwt";
 import {Env} from "../models/env";
+import {Response} from "@angular/http";
 declare var ENV: Env;
 
 /*
@@ -18,18 +18,17 @@ export class JwtClient {
     private _token = null;
     private _payload = null;
 
-    constructor(public http: HttpClient, public storage: Storage, public jwtHelper: JwtHelper) {
+    constructor(public authHttp: AuthHttp, public storage: Storage, public jwtHelper: JwtHelper) {
         this.getToken();
     }
 
     accessToken(jwtCredientials: JwtCredentials): Promise<string> {
-        return this.http.post(`${ENV.APP_URL}/access_token`, jwtCredientials)
+        return this.authHttp.post(`${ENV.APP_URL}/access_token`, jwtCredientials)
             .toPromise()
-            .then((response) => {
-                let obj = JSON.parse(JSON.stringify(response));
-                this._token = obj.token;
+            .then((response: Response) => {
+                this._token = response.json().token;
                 this.storage.set(ENV.TOKEN_NAME, this._token);
-                return obj.token;
+                return this._token;
             });
     }
 
@@ -60,9 +59,7 @@ export class JwtClient {
     }
 
     revokeToken(): Promise<null>{
-        return this.http.post(`${ENV.APP_URL}/logout`, {}, {
-            headers: new HttpHeaders().set('Authorization', `Bearer ${this._token}`)
-        })
+        return this.authHttp.post(`${ENV.APP_URL}/logout`, {})
             .toPromise()
             .then((response) => {
                this._token = null;

@@ -40,7 +40,7 @@ export class LoginPage {
             .then(() => {
                 this.afterLogin();
             })
-            .catch(() => {
+            .catch((error) => {
                 let toast = this.toastCtrl.create({
                     message: 'E-mail e/ou senha inválidos.',
                     duration: 3000,
