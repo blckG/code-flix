@@ -3,7 +3,8 @@ import {Injectable} from '@angular/core';
 import {JwtCredentials} from "../models/jwt-credentials";
 import {Storage} from "@ionic/storage";
 import {JwtHelper} from "angular2-jwt";
-
+import {Env} from "../models/env";
+declare var ENV: Env;
 
 /*
   Generated class for the JwtClient provider.
@@ -22,12 +23,12 @@ export class JwtClient {
     }
 
     accessToken(jwtCredientials: JwtCredentials): Promise<string> {
-        return this.http.post('http://localhost:8000/api/access_token', jwtCredientials)
+        return this.http.post(`${ENV.APP_URL}/access_token`, jwtCredientials)
             .toPromise()
             .then((response) => {
                 let obj = JSON.parse(JSON.stringify(response));
                 this._token = obj.token;
-                this.storage.set('token', this._token);
+                this.storage.set(ENV.TOKEN_NAME, this._token);
                 return obj.token;
             });
     }
@@ -37,7 +38,7 @@ export class JwtClient {
            if(this._token) {
                resolve(this._token);
            }
-           this.storage.get('token').then((token) => {
+           this.storage.get(ENV.TOKEN_NAME).then((token) => {
                this._token = token;
                resolve(this._token);
            });
@@ -59,7 +60,7 @@ export class JwtClient {
     }
 
     revokeToken(): Promise<null>{
-        return this.http.post('http://localhost:8000/api/logout', {}, {
+        return this.http.post(`${ENV.APP_URL}/logout`, {}, {
             headers: new HttpHeaders().set('Authorization', `Bearer ${this._token}`)
         })
             .toPromise()
