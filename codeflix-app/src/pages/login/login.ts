@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, MenuController, NavController, NavParams, ToastController} from 'ionic-angular';
 import "rxjs/add/operator/toPromise";
 import {Auth} from "../../providers/auth";
+import {HomePage} from "../home/home";
 
 
 /**
@@ -22,7 +23,12 @@ export class LoginPage {
         password: null
     };
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private auth: Auth) {
+    constructor(public navCtrl: NavController,
+                public menuController: MenuController,
+                public navParams: NavParams,
+                public toastCtrl: ToastController,
+                private auth: Auth) {
+        this.menuController.enable(false);
     }
 
     ionViewDidLoad() {
@@ -32,13 +38,23 @@ export class LoginPage {
     login() {
         this.auth.login(this.user)
             .then(() => {
-                //redirect
+                this.afterLogin();
+            })
+            .catch(() => {
+                let toast = this.toastCtrl.create({
+                    message: 'E-mail e/ou senha inválidos.',
+                    duration: 3000,
+                    position: 'bottom',
+                    cssClass: 'toast-login-error'
+                });
+
+                toast.present();
             });
-        /*this.jwtClient
-            .accessToken({email: this.email, password: this.password})
-            .then((token) => {
-                console.log(token);
-            });*/
+    }
+
+    afterLogin(){
+        this.menuController.enable(true);
+        this.navCtrl.push(HomePage);
     }
 
 }
