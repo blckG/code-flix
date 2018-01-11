@@ -36,6 +36,12 @@ export class Auth {
           });
   }
 
+  check(): Promise<boolean>{
+      return this.user().then(user => {
+          return user !== null;
+      });
+  }
+
   logout(){
     return this.jwtClient.revokeToken().then(() => {this._user = null});
   }
