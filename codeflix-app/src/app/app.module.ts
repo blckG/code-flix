@@ -14,7 +14,8 @@ import {IonicStorageModule, Storage} from "@ionic/storage";
 import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
 import {Auth} from "../providers/auth";
 import {Env} from "../models/env";
-import {Http, HttpModule} from "@angular/http";
+import {Http, HttpModule, XHRBackend} from "@angular/http";
+import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 
 declare var ENV: Env;
 
@@ -59,7 +60,8 @@ declare var ENV: Env;
                 });
                 return new AuthHttp(authConfig, http);
             }
-        }
+        },
+        {provide: XHRBackend, useClass: DefaultXHRBackend}
     ]
 })
 export class AppModule {
