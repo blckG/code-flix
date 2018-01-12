@@ -16,6 +16,7 @@ import {Auth} from "../providers/auth";
 import {Env} from "../models/env";
 import {Http, HttpModule, XHRBackend} from "@angular/http";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
+import {Redirector} from "../providers/redirector";
 
 declare var ENV: Env;
 
@@ -29,7 +30,12 @@ declare var ENV: Env;
     imports: [
         BrowserModule,
         HttpModule,
-        IonicModule.forRoot(MyApp),
+        IonicModule.forRoot(MyApp, {}, {
+            links: [
+                {component: LoginPage,name: 'LoginPage', segment: 'login'},
+                {component: HomePage,name: 'HomePage', segment: 'home'},
+            ]
+        }),
         IonicStorageModule.forRoot({
             driverOrder: ['localstorage']
         })
@@ -47,6 +53,7 @@ declare var ENV: Env;
         JwtClient,
         Auth,
         JwtHelper,
+        Redirector,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: AuthHttp,

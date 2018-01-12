@@ -8,6 +8,7 @@ use CodeFlix\Models\Video;
 use Dingo\Api\Exception\Handler;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\ServiceProvider;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,9 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Video::updated(function($video){
-            if(!$video->completed){
-                if($video->file != null && $video->thumb != null && $video->duration != null) {
+        Video::updated(function ($video) {
+            if (!$video->completed) {
+                if ($video->file != null && $video->thumb != null && $video->duration != null) {
                     $video->completed = true;
                     $video->save();
                 }
@@ -35,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if($this->app->environment() !== 'production'){
+        if ($this->app->environment() !== 'production') {
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
         }
@@ -56,8 +57,12 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $handlerApi = app(Handler::class);
-        $handlerApi->register(function(AuthenticationException $exception){
-         return response()->json(['error' => 'Unauthenticated'], 401);
-     });
+        $handlerApi->register(function (AuthenticationException $exception) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        });
+
+        $handlerApi->register(function (JWTException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 401);
+        });
     }
 }

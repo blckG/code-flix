@@ -32,6 +32,11 @@ export class JwtClient {
             });
     }
 
+    setToken(token: string) {
+        this._token = token;
+        this.storage.set(ENV.TOKEN_NAME, this._token);
+    }
+
     getToken(): Promise<string>{
         return new Promise((resolve) => {
            if(this._token) {
