@@ -52,6 +52,10 @@ export class LoginPage {
             });
     }
 
+    loginFacebook(){
+        this.auth.loginFacebook();
+    }
+
     afterLogin(){
         this.menuController.enable(true);
         this.navCtrl.push(HomePage);
