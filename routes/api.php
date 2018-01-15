@@ -44,6 +44,7 @@ ApiRoute::version('v1', function () {
             ApiRoute::get('/user', function (Request $request) {
                 return $request->user('api');
             });
+            ApiRoute::put('/user/change-password', 'UsersController@changePassword');
 
 
         });

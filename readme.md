@@ -53,3 +53,12 @@ Você deverá implementar testes para:
 **Testes no Browser**
 
 * Testar as 4 operações do CRUD de categorias: Create, Retrieve (show), Update e Delete.
+
+### Autenticação no aplicativo
+Nesta fase você deverá criar a autenticação no aplicativo Ionic. Implemente todos conceitos vistos nos últimos capítulos.
+
+* Mostre o nome do usuário
+* Termine o redirecionamento para o login após o logout
+* Implemente uma área de alteração de senha
+
+Lembre-se de proteger a área interna do aplicativo com o decorator de autenticação

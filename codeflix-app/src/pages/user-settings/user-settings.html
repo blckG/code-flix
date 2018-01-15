@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Alterar senha</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-sm-auto col-md-5>
+        <ion-card color="light">
+          <ion-card-header>
+            <ion-card-title>Alterar senha</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form (submit)="changePassword()">
+              <ion-item>
+                <ion-input name="password" [(ngModel)]="password" type="password" required placeholder="Nova senha"></ion-input>
+              </ion-item>
+              <button ion-button block color="primary" icon-right type="submit">
+                Alterar <ion-icon name="checkmark"></ion-icon>
+              </button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
