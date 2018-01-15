@@ -85,4 +85,5 @@
         <variable name="APP_ID" value="143170616397969" />
         <variable name="APP_NAME" value="CodeFlixApp" />
     </plugin>
+    <engine name="browser" spec="~4.1.0" />
 </widget>
