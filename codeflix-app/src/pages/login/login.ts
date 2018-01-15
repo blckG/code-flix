@@ -53,7 +53,20 @@ export class LoginPage {
     }
 
     loginFacebook(){
-        this.auth.loginFacebook();
+        this.auth.loginFacebook()
+            .then(() => {
+                this.afterLogin();
+            })
+            .catch(() => {
+                let toast = this.toastCtrl.create({
+                    message: 'Erro ao realizar login no Facebook.',
+                    duration: 3000,
+                    position: 'bottom',
+                    cssClass: 'toast-login-error'
+                });
+
+                toast.present();
+            });
     }
 
     afterLogin(){

@@ -26,6 +26,18 @@ class RegisterUsersController extends Controller
         $facebook = \Socialite::driver('facebook');
         /** @var $userSocial User */
         $userSocial = $facebook->userFromToken($accessToken);
-        dd($userSocial);
+        $user = $this->repository->findByField('email', $userSocial->email)->first();
+        if(!$user) {
+            \CodeFlix\Models\User::unguard();
+            $user = $this->repository->create([
+                'name' => $userSocial->name,
+                'email' => $userSocial->email,
+                'role' => \CodeFlix\Models\User::ROLE_CLIENT,
+                'verified' => true
+            ]);
+            \CodeFlix\Models\User::reguard();
+        }
+
+        return ['token' => \Auth::guard('api')->tokenById($user->id)];
     }
 }
