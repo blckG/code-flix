@@ -81,3 +81,9 @@ $factory->define(\CodeFlix\Models\Order::class, function(\Faker\Generator $faker
         'value' => $faker->randomFloat(2, 50, 100)
     ];
 });
+
+/*$factory->define(\CodeFlix\Models\Subscription::class, function(\Faker\Generator $faker){
+    return [
+
+    ];
+});*/

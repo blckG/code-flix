@@ -15,7 +15,7 @@ class Order extends Model implements Transformable
         'value'
     ];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
