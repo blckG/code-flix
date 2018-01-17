@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \CodeFlix\Events\PayPalPaymentApproved::class => [
             \CodeFlix\Listeners\CreateOrderListener::class
+        ],
+        \Prettus\Repository\Events\RepositoryEntityCreated::class => [
+            \CodeFlix\Listeners\CreateSubscriptionListener::class
         ]
     ];
 

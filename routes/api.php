@@ -51,6 +51,15 @@ ApiRoute::version('v1', function () {
             ApiRoute::patch('/user/change-password', 'UsersController@changePassword');
             ApiRoute::post('/plans/{plan}/payments', 'PaymentsController@store');
 
+            /*******************************/
+            /***** Área do assinante *******/
+            /*******************************/
+            ApiRoute::group(['middleware' => 'check-subscriptions'], function(){
+                ApiRoute::get('/test', function (Request $request) {
+                    return "Tenho uma assinatura válida!";
+                });
+            });
+
         });
         ApiRoute::get('/categories', 'CategoriesController@index')->name('.categories.index');
     });
