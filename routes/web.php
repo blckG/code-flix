@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::get('videos/{video}/thumb-small-asset', 'VideosController@thumbSmallAsset')
             ->name('videos.thumb-small-asset');
         Route::resource('videos', 'VideosController');
+        Route::resource('plans', 'PlansController');
 
     });
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
