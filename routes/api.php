@@ -18,7 +18,11 @@ use Illuminate\Http\Request;
 });*/
 
 ApiRoute::version('v1', function () {
-    ApiRoute::group(['namespace' => 'CodeFlix\Http\Controllers\Api', 'as' => 'api'], function () {
+    ApiRoute::group([
+        'namespace' => 'CodeFlix\Http\Controllers\Api',
+        'as' => 'api',
+        'middleware' => 'bindings'
+    ], function () {
         ApiRoute::post('/access_token', [
             'uses' => 'AuthController@accessToken',
             'middleware' => 'api.throttle',
@@ -45,7 +49,7 @@ ApiRoute::version('v1', function () {
                 return $request->user('api');
             });
             ApiRoute::patch('/user/change-password', 'UsersController@changePassword');
-
+            ApiRoute::post('/plans/{plan}/payments', 'PaymentsController@store');
 
         });
         ApiRoute::get('/categories', 'CategoriesController@index')->name('.categories.index');

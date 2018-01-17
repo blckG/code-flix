@@ -14,8 +14,11 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \Dingo\Api\Event\ResponseWasMorphed::class => [
-            'CodeFlix\Listeners\AddTokenToHeaderListener',
+            \CodeFlix\Listeners\AddTokenToHeaderListener::class,
         ],
+        \CodeFlix\Events\PayPalPaymentApproved::class => [
+            \CodeFlix\Listeners\CreateOrderListener::class
+        ]
     ];
 
     /**
