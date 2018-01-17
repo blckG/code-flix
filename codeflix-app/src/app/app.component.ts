@@ -9,6 +9,7 @@ import {LoginPage} from "../pages/login/login";
 import {Auth} from "../providers/auth";
 import {Redirector} from "../providers/redirector";
 import {UserSettingsPage} from "../pages/user-settings/user-settings";
+import md5 from "crypto-md5";
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +19,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
   user: any;
+  gravatarUrl: string = "https://www.gravatar.com/avatar/nouser.jpg";
 
   pages: Array<{title: string, component: any}>;
 
@@ -38,7 +40,10 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.auth.user().then(user => {this.user = user});
+    this.auth.userSubject().subscribe(user => {
+      this.user = user;
+      this.gravatar();
+    });
 
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -52,6 +57,12 @@ export class MyApp {
       this.redirector.config(this.nav);
   }
 
+  gravatar(){
+    if(this.user) {
+        this.gravatarUrl = `https://www.gravatar.com/avatar/${md5(this.user.email, 'hex')}`;
+    }
+  }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
@@ -60,7 +71,7 @@ export class MyApp {
 
   logout(){
     this.auth.logout().then(() => {
-      this.nav.push(LoginPage);
+       this.nav.setRoot(LoginPage);
     })
   }
 }

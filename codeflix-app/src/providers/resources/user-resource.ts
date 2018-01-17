@@ -26,7 +26,7 @@ export class UserResource {
     }
 
     changePassword(password: string): Promise<string> {
-        return this.authHttp.put(`${ENV.APP_URL}/user/change-password`, {password})
+        return this.authHttp.patch(`${ENV.APP_URL}/user/change-password`, {password})
             .toPromise()
             .then(response => response.json().message);
     }
