@@ -24,6 +24,7 @@ import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {Facebook} from "@ionic-native/facebook";
 import {UserResource} from "../providers/resources/user.resource";
+import {TextMaskModule} from "angular2-text-mask";
 
 declare var ENV: Env;
 
@@ -42,6 +43,7 @@ declare var ENV: Env;
     imports: [
     BrowserModule,
     HttpModule,
+    TextMaskModule,
     IonicModule.forRoot(MyApp, {}, {
         links: [
         {component: LoginPage,name: 'LoginPage', segment: 'login'},

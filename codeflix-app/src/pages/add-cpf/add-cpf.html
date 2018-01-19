@@ -23,7 +23,8 @@
 					<ion-card-content>
 						<form (submit)="submit()">
 							<ion-item>
-								<ion-input type="text" name="cpf" placeholder="CPF" [(ngModel)]="cpf"></ion-input>
+								<ion-input type="text" name="cpf" placeholder="CPF" 
+								[(ngModel)]="cpf" [textMask]="{mask: mask}"></ion-input>
 							</ion-item>
 							<button ion-button type="submit" color="dark">Continuar</button>
 						</form>

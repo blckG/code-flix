@@ -16,6 +16,12 @@ import {UserResource} from "../../providers/resources/user.resource";
  export class AddCpfPage {
 
  	cpf: string = null;
+ 	mask = [
+ 	/\d/,/\d/,/\d/,'.',
+ 	/\d/,/\d/,/\d/,'.',
+ 	/\d/,/\d/,/\d/,'-',
+ 	/\d/,/\d/
+ 	];
 
  	constructor(public navCtrl: NavController, 
  		public navParams: NavParams, 

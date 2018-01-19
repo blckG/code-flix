@@ -17,6 +17,13 @@ class AddCpfRequest extends FormRequest
         return true;
     }
 
+    protected function validationData()
+    {
+        $cpf = preg_replace('/[^0-9]/', "", $this->get('cpf'));
+        $this->replace(['cpf' => $cpf]);
+        return parent::validationData();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,8 +31,6 @@ class AddCpfRequest extends FormRequest
      */
     public function rules()
     {
-        $cpf = preg_replace('/^[0-9]/', "", $this->get('cpf'));
-        $this->replace(['cpf' => $cpf]);
         return [
             'cpf' => [
                 'required',
