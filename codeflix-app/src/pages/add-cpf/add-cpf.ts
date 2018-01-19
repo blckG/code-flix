@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController} from 'ionic-angular';
+import {UserResource} from "../../providers/resources/user.resource";
 
 /**
  * Generated class for the AddCpfPage page.
@@ -8,17 +9,35 @@ import { NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@Component({
-  selector: 'page-add-cpf',
-  templateUrl: 'add-cpf.html',
-})
-export class AddCpfPage {
+ @Component({
+ 	selector: 'page-add-cpf',
+ 	templateUrl: 'add-cpf.html',
+ })
+ export class AddCpfPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+ 	cpf: string = null;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddCpfPage');
-  }
+ 	constructor(public navCtrl: NavController, 
+ 		public navParams: NavParams, 
+ 		public userResource: UserResource,
+ 		public toastCtrl: ToastController) {}
 
-}
+ 	ionViewDidLoad() {}
+
+ 	submit(){
+ 		this.userResource.addCpf(this.cpf)
+ 		.then(() => {
+ 			this.navCtrl.push('PlansPage');
+ 		})
+ 		.catch(() => {
+ 			let toast = this.toastCtrl.create({
+ 				message: 'Cpf inválido, verifique novamente!',
+ 				duration: 3000,
+ 				position: 'bottom'
+ 			});
+
+ 			toast.present();
+ 		});	
+ 	}
+
+ }

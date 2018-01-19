@@ -23,7 +23,7 @@ import {Http, HttpModule, XHRBackend} from "@angular/http";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {Facebook} from "@ionic-native/facebook";
-import {UserResource} from "../providers/resources/user-resource";
+import {UserResource} from "../providers/resources/user.resource";
 
 declare var ENV: Env;
 

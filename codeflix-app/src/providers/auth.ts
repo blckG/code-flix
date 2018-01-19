@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {JwtClient} from "./jwt-client";
 import {JwtPayload} from "../models/jwt-payload";
 import {Facebook, FacebookLoginResponse} from "@ionic-native/facebook";
-import {UserResource} from "./resources/user-resource";
+import {UserResource} from "./resources/user.resource";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 /*
