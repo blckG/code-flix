@@ -49,6 +49,7 @@ ApiRoute::version('v1', function () {
                 return $request->user('api');
             });
             ApiRoute::patch('/user/change-password', 'UsersController@changePassword');
+            ApiRoute::patch('/user/cpf', 'UsersController@addCpf');
             ApiRoute::post('/plans/{plan}/payments', 'PaymentsController@store');
 
             /*******************************/

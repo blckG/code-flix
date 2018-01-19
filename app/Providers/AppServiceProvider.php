@@ -11,6 +11,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Code\Validator\Cpf;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
                     $video->save();
                 }
             }
+        });
+
+        \Validator::extend('cpf', function($attribute, $value, $parameters, $validator){
+            return (new Cpf())->isValid($value);
         });
     }
 

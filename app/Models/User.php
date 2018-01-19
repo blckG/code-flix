@@ -22,7 +22,7 @@ class User extends Authenticatable implements TableInterface, JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name', 'email', 'password', 'role', 'cpf'
     ];
 
     /**
@@ -71,8 +71,8 @@ class User extends Authenticatable implements TableInterface, JWTSubject
      */
     public function getTableHeaders()
     {
-       return ['#', 'Nome', 'E-mail'];
-   }
+     return ['#', 'Nome', 'E-mail'];
+ }
 
     /**
      * Get the value for a given header. Note that this will be the value
