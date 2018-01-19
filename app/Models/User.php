@@ -71,8 +71,8 @@ class User extends Authenticatable implements TableInterface, JWTSubject
      */
     public function getTableHeaders()
     {
-     return ['#', 'Nome', 'E-mail'];
- }
+       return ['#', 'Nome', 'E-mail'];
+   }
 
     /**
      * Get the value for a given header. Note that this will be the value
@@ -104,7 +104,8 @@ class User extends Authenticatable implements TableInterface, JWTSubject
             'user' => [
                 'id' => $this->id,
                 'name' => $this->name,
-                'email' => $this->email
+                'email' => $this->email,
+                'subscription_valid' => $this->hasSubscriptionValid()
             ]
         ];
     }

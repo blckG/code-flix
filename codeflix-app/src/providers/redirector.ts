@@ -7,22 +7,23 @@ import {NavController} from "ionic-angular";
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
-*/
-@Injectable()
-export class Redirector {
+  */
+  @Injectable()
+  export class Redirector {
 
     subject = new Subject();
-
-    config(navCtrl: NavController, link = 'LoginPage') {
-        this.subject.subscribe(() => {
-            setTimeout(() => {
-                navCtrl.setRoot(link);
-            });
+    link;
+    config(navCtrl: NavController) {
+      this.subject.subscribe(() => {
+        setTimeout(() => {
+          navCtrl.setRoot(this.link);
         });
+      });
     }
 
-    redirector(){
-        this.subject.next();
+    redirector(link = 'LoginPage'){
+      this.link = link;
+      this.subject.next();
     }
 
-}
+  }
