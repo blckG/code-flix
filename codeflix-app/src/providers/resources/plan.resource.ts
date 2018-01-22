@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import {Observable} from "rxjs/Observable";
 import {AuthHttp} from "angular2-jwt";
 import {Env} from "../../models/env";
 
@@ -16,10 +17,9 @@ declare var ENV: Env;
 
   	constructor(public http: AuthHttp) {}
 
-  	all(): Promise<Array<any>> {
+  	all(): Observable<Array<Object>> {
   		return this.http.get(`${ENV.APP_URL}/plans`)
-  		.toPromise()
-  		.then(response => response.json().plans);
+  		.map(response => response.json().plans);
   	}
 
   }
