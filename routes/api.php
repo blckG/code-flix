@@ -50,6 +50,7 @@ ApiRoute::version('v1', function () {
             });
             ApiRoute::patch('/user/change-password', 'UsersController@changePassword');
             ApiRoute::patch('/user/cpf', 'UsersController@addCpf');
+            ApiRoute::get('/plans', 'PlansController@index');
             ApiRoute::post('/plans/{plan}/payments', 'PaymentsController@store');
 
             /*******************************/

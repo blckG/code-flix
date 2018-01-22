@@ -24,6 +24,7 @@ import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {Facebook} from "@ionic-native/facebook";
 import {UserResource} from "../providers/resources/user.resource";
+import {PlanResource} from "../providers/resources/plan.resource";
 import {TextMaskModule} from "angular2-text-mask";
 
 declare var ENV: Env;
@@ -80,6 +81,7 @@ declare var ENV: Env;
     Redirector,
     Facebook,
     UserResource,
+    PlanResource,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
         provide: AuthHttp,
@@ -94,7 +96,7 @@ declare var ENV: Env;
             return new AuthHttp(authConfig, http);
         }
     },
-    {provide: XHRBackend, useClass: DefaultXHRBackend},
+    {provide: XHRBackend, useClass: DefaultXHRBackend}
     ]
 })
 export class AppModule {
