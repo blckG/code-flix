@@ -27,6 +27,11 @@ class Plan extends Model implements Transformable, TableInterface
         'duration' => 'integer'
     ];
 
+    public function getSkuAttribute()
+    {
+        return "plan-{$this->id}";
+    }
+
     /**
      * A list of headers to be used when a table is displayed
      *
@@ -48,13 +53,13 @@ class Plan extends Model implements Transformable, TableInterface
     {
         switch ($header) {
             case '#':
-                return $this->id;
+            return $this->id;
             case 'Nome':
-                return $this->name;
+            return $this->name;
             case 'Descrição':
-                return $this->description;
+            return $this->description;
             case 'Duração':
-                return $this->duration == self::DURATION_MONTHLY ? 'Monthly' : 'Yearly';
+            return $this->duration == self::DURATION_MONTHLY ? 'Monthly' : 'Yearly';
         }
     }
 
