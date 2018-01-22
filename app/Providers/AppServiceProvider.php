@@ -12,6 +12,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Code\Validator\Cpf;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,15 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
         }
+
+        $this->app->bind(ApiContext::class, function(){
+            $apiContext = new ApiContext(new OAuthTokenCredential(
+                env('PAYPAL_CLIENT_ID'), env('PAYPAL_CLIENT_SECRET')
+            ));
+            //Atrasa a transação em 45segs
+            //$apiContext->setConfig(['http.CURLOPT_CONNECTIONTIMEOUT' => 45]);
+            return $apiContext;
+        });
 
         $this->app->bind(
             'bootstrapper::form',
