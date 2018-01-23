@@ -20,7 +20,8 @@ class EventServiceProvider extends ServiceProvider
             \CodeFlix\Listeners\CreateOrderListener::class
         ],
         \Prettus\Repository\Events\RepositoryEntityCreated::class => [
-            \CodeFlix\Listeners\CreateSubscriptionListener::class
+            \CodeFlix\Listeners\CreateSubscriptionListener::class,
+            \CodeFlix\Listeners\CreatePayPalWebProfileListener::class
         ]
     ];
 

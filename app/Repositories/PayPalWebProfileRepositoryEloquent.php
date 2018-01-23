@@ -23,6 +23,12 @@ class PayPalWebProfileRepositoryEloquent extends BaseRepository implements PayPa
     {
         return PayPalWebProfile::class;
     }
+    
+    public function create(array $attributes)
+    {
+        $attributes['code'] = 'processing';
+        return parent::create($attributes);
+    }
 
     
 
