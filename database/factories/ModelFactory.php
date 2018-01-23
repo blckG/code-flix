@@ -87,3 +87,11 @@ $factory->define(\CodeFlix\Models\Order::class, function(\Faker\Generator $faker
 
     ];
 });*/
+
+$factory->define(\CodeFlix\Models\PayPalWebProfile::class, function(\Faker\Generator $faker){
+    return [
+        'name' => $faker->name,
+        'logo_url' => $faker->imageUrl(200, 200),
+        'code' => str_random()
+    ];
+});

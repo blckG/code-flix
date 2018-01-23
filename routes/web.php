@@ -63,6 +63,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
             ->name('videos.thumb-small-asset');
         Route::resource('videos', 'VideosController');
         Route::resource('plans', 'PlansController');
+        Route::resource('web_profiles', 'PayPalWebProfilesController');
 
     });
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

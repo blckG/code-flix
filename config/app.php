@@ -244,6 +244,7 @@ return [
         'MediaObject' => Bootstrapper\Facades\MediaObject::class,
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        'BootstrapperImage' => \Bootstrapper\Facades\Image::class,
         'Image' => Folklore\Image\Facades\Image::class,
         'ApiRoute' => Dingo\Api\Facade\Route::class,
         'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
