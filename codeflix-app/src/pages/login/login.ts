@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, ToastController} from 'ionic-angular';
 import "rxjs/add/operator/toPromise";
 import {Auth} from "../../providers/auth";
-import {HomePage} from "../home/home";
 
 
 /**

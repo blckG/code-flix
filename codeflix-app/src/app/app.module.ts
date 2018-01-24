@@ -25,6 +25,7 @@ import {Redirector} from "../providers/redirector";
 import {Facebook} from "@ionic-native/facebook";
 import {UserResource} from "../providers/resources/user.resource";
 import {PlanResource} from "../providers/resources/plan.resource";
+import { PaymentResource } from '../providers/resources/payment.resource';
 import {TextMaskModule} from "angular2-text-mask";
 
 declare var ENV: Env;
@@ -82,6 +83,7 @@ declare var ENV: Env;
     Facebook,
     UserResource,
     PlanResource,
+    PaymentResource,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
         provide: AuthHttp,
