@@ -41,6 +41,7 @@ class CreatePayPalWebProfileListener
         }
 
         $payPalWebProfile = $this->webProfileClient->create($model);
+        \Config::set('webprofile_created', true);
         $this->repository->update(['code' => $payPalWebProfile->getId()], $model->id);
     }
 }

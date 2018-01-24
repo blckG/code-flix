@@ -35,7 +35,8 @@ class UpdatePayPalWebProfileListener
         if(!($model instanceof PayPalWebProfile)) {
             return;
         }
-
-        $this->webProfileClient->update($model);
+        if(!\Config::get('webprofile_created')){
+            $this->webProfileClient->update($model);
+        }
     }
 }

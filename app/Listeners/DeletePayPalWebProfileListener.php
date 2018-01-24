@@ -6,6 +6,7 @@ use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use CodeFlix\Models\PayPalWebProfile;
+use CodeFlix\PayPal\WebProfileClient;
 
 class DeletePayPalWebProfileListener
 {
