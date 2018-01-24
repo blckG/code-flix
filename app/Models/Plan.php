@@ -20,7 +20,8 @@ class Plan extends Model implements Transformable, TableInterface
         'name',
         'description',
         'value',
-        'duration'
+        'duration',
+        'paypal_web_profile_id'
     ];
 
     protected $casts = [
@@ -30,6 +31,11 @@ class Plan extends Model implements Transformable, TableInterface
     public function getSkuAttribute()
     {
         return "plan-{$this->id}";
+    }
+
+    public function webProfile()
+    {
+        return $this->belongsTo(PayPalWebProfile::class, 'paypal_web_profile_id');
     }
 
     /**
@@ -59,7 +65,7 @@ class Plan extends Model implements Transformable, TableInterface
             case 'Descrição':
             return $this->description;
             case 'Duração':
-            return $this->duration == self::DURATION_MONTHLY ? 'Monthly' : 'Yearly';
+            return $this->duration == self::DURATION_MONTHLY ? 'Mensal' : 'Anual';
         }
     }
 
