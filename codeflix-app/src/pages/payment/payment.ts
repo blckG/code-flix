@@ -5,6 +5,7 @@ import { UserResource } from '../../providers/resources/user.resource';
 import { PaymentResource } from '../../providers/resources/payment.resource';
 import { Subject } from 'rxjs/Subject';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 declare var PAYPAL;
 
@@ -33,6 +34,7 @@ export class PaymentPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
     public userResource: UserResource,
     public paymentResource: PaymentResource
   ) {
@@ -79,6 +81,7 @@ export class PaymentPage {
     if (this.ppplusLoaded && this.payment !== null && this.user !== null) {
       this.loading.dismiss();
       this.ppp = PAYPAL.apps.PPP({
+        buttonLocation: 'outside',
         approvalUrl: this.payment.approval_url,
         placeholder: 'ppplus',
         mode: 'sandbox',
@@ -88,9 +91,38 @@ export class PaymentPage {
         payerLastName: this.user.name.split(" ")[0],
         payerEmail: this.user.email,
         payerTaxId: this.user.cpf,
-        payerTaxIdType: 'BR_CPF'
+        payerTaxIdType: 'BR_CPF',
+        onContinue(cardToken, payerId){
+
+        }
       });
     }
+  }
+
+  buy(){
+    this.ppp.doContinue();
+  }
+
+  doPayment(payerId){
+    this.loading = this.loadingCtrl.create({
+      content: 'Realizando pagamento'
+    });
+    this.loading.present();
+
+    this.paymentResource
+      .doPyment(this.planId, this.payment.payment_id, payerId)
+      .subscribe(() => {
+
+      }, () => {
+        this.loading.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'Mensagem de erro',
+          subTitle: 'Ops! Seu pagamento não foi aprovado.',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
+
   }
 
 }

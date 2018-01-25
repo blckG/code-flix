@@ -15,10 +15,18 @@ declare var ENV: Env;
 @Injectable()
 export class PaymentResource {
 
-  constructor(public http: AuthHttp) {}
+  constructor(public http: AuthHttp) { }
 
-  get(planId: number): Observable<Object>{
+  get(planId: number): Observable<Object> {
     return this.http.post(`${ENV.APP_URL}/plans/${planId}/payments`, {})
+      .map(response => response.json());
+  }
+
+  doPyment(planId: number, paymentId: string, payerId: string): Observable<Object> {
+    return this.http.patch(`${ENV.APP_URL}/plans/${planId}/payments`, {
+      payment_id: paymentId,
+      payer_id: payerId
+    })
       .map(response => response.json());
   }
 
