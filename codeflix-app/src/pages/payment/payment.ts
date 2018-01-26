@@ -113,7 +113,8 @@ export class PaymentPage {
     this.paymentResource
       .doPyment(this.planId, this.payment.payment_id, payerId)
       .subscribe(() => {
-        console.log('sucesso!');
+        this.loading.dismiss();
+        this.navCtrl.setRoot('SubscriptionPage');
       }, () => {
         this.loading.dismiss();
         let alert = this.alertCtrl.create({

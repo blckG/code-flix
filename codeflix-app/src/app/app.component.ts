@@ -34,7 +34,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Alterar senha', component: UserSettingsPage }
+      { title: 'Alterar senha', component: UserSettingsPage },
+      { title: 'Minhas Assinaturas', component: 'SubscriptionPage' }
     ];
 
   }

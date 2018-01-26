@@ -1,0 +1,36 @@
+<!--
+  Generated template for the SubscriptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Minhas Assinaturas</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-sm-4 *ngFor="let sub of subscriptions">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{sub.plan.name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              Assinatura válida até {{sub.expires_at | date: 'dd/MM/yyyy'}}
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

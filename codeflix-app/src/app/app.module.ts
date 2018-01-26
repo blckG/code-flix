@@ -10,6 +10,7 @@ import {HomeSubscriberPage} from "../pages/home-subscriber/home-subscriber";
 import {AddCpfPage} from "../pages/add-cpf/add-cpf";
 import {PlansPage} from "../pages/plans/plans";
 import {PaymentPage} from "../pages/payment/payment";
+import {SubscriptionPage} from "../pages/subscription/subscription";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -40,7 +41,8 @@ declare var ENV: Env;
     HomeSubscriberPage,
     PaymentPage,
     PlansPage,
-    AddCpfPage
+    AddCpfPage,
+    SubscriptionPage,
     ],
     imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ declare var ENV: Env;
         {component: HomeSubscriberPage ,name: 'HomeSubscriberPage', segment: 'home-subscriber'},
         {component: AddCpfPage ,name: 'AddCpfPage', segment: 'add-cpf'},
         {component: PlansPage ,name: 'PlansPage', segment: 'plans'},
-        {component: PaymentPage ,name: 'PaymentPage', segment: 'plan/:plan/payment'}
+        {component: PaymentPage ,name: 'PaymentPage', segment: 'plan/:plan/payment'},
+        {component: SubscriptionPage ,name: 'SubscriptionPage', segment: 'subscriptions'}
         ]
     }),
     IonicStorageModule.forRoot({
@@ -71,7 +74,8 @@ declare var ENV: Env;
     HomeSubscriberPage,
     PaymentPage,
     PlansPage,
-    AddCpfPage
+    AddCpfPage,
+    SubscriptionPage,
     ],
     providers: [
     StatusBar,

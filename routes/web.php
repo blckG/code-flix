@@ -65,6 +65,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::resource('plans', 'PlansController');
         Route::resource('web_profiles', 'PayPalWebProfilesController');
 
+        Route::get('subscriptions', 'SubscriptionsController@index')->name('subscriptions.index');
+
     });
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');

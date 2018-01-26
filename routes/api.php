@@ -54,6 +54,8 @@ ApiRoute::version('v1', function () {
             ApiRoute::post('/plans/{plan}/payments', 'PaymentsController@makePayment');
             ApiRoute::patch('/plans/{plan}/payments', 'PaymentsController@store');
 
+            ApiRoute::get('/subscriptions', 'SubscriptionsController@index');
+
             /*******************************/
             /***** Área do assinante *******/
             /*******************************/

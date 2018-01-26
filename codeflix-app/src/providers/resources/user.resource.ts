@@ -44,4 +44,10 @@ declare var ENV: Env;
       .map(response => response.json().user);
     }
 
+    getSubscriptions(): Promise<Object>{
+      return this.authHttp.get(`${ENV.APP_URL}/subscriptions`)
+        .toPromise()
+        .then(response => response.json().subscriptions);
+    }
+
   }

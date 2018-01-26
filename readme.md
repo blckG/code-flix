@@ -62,3 +62,9 @@ Nesta fase você deverá criar a autenticação no aplicativo Ionic. Implemente 
 * Implemente uma área de alteração de senha
 
 Lembre-se de proteger a área interna do aplicativo com o decorator de autenticação
+
+### Consolidando pagamento no App
+
+Nesta fase você deverá criar o sistema de pagamento montado no curso.
+
+Além disto, na área administrativa, liste as assinaturas contratadas e no app liste as assinaturas do usuário (crie uma nova página para isto).
