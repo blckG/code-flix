@@ -80,6 +80,7 @@ export class PaymentPage {
   makePayPalPlus() {
     if (this.ppplusLoaded && this.payment !== null && this.user !== null) {
       this.loading.dismiss();
+      let self = this;
       this.ppp = PAYPAL.apps.PPP({
         buttonLocation: 'outside',
         approvalUrl: this.payment.approval_url,
@@ -93,7 +94,7 @@ export class PaymentPage {
         payerTaxId: this.user.cpf,
         payerTaxIdType: 'BR_CPF',
         onContinue(cardToken, payerId){
-
+          self.doPayment(payerId);
         }
       });
     }
@@ -112,7 +113,7 @@ export class PaymentPage {
     this.paymentResource
       .doPyment(this.planId, this.payment.payment_id, payerId)
       .subscribe(() => {
-
+        console.log('sucesso!');
       }, () => {
         this.loading.dismiss();
         let alert = this.alertCtrl.create({

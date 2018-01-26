@@ -30,7 +30,7 @@ class PaymentsController extends Controller
 
     public function store(OrderRequest $request, Plan $plan)
     {
-        $order = $this->paymentClient->doPayment($plan);
+        $order = $this->paymentClient->doPayment($plan, $request->get('payment_id'), $request->get('payer_id'));
         return $order;
     }
 }

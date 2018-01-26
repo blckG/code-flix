@@ -16,6 +16,7 @@ use PayPal\Api\Payee;
 use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 
 class PaymentClient
 {
@@ -26,9 +27,38 @@ class PaymentClient
 		$this->apiContext = $apiContext;
 	}
 
-	public function doPayment(Plan $plan)
+	public function get($paymentId)
 	{
-		$event = new PayPalPaymentApproved($plan);
+		return Payment::get($paymentId, $this->apiContext);
+	}
+
+	public function doPayment(Plan $plan, $paymentId, $payerId)
+	{
+		$payment = Payment::get($paymentId, $this->apiContext);
+
+		$execution = new PaymentExecution();
+		$execution->setPayerId($payerId);
+
+		$details = new Details();
+		$details
+			->setShipping(0)
+			->setTax(0)
+			->setSubtotal($plan->value);
+
+		$amount = new Amount();
+		$amount
+			->setCurrency('BRL')
+			->setTotal($plan->value)
+			->setDetails($details);
+
+		$transaction = new Transaction();
+		$transaction->setAmount($amount);
+		
+		$execution->addTransaction($transaction);
+
+		$payment->execute($execution, $this->apiContext);
+
+		$event = new PayPalPaymentApproved($plan, $payment);
 		event($event);
 		return $event->getOrder();
 	}
@@ -67,10 +97,11 @@ class PaymentClient
 
 		$transaction = new Transaction();
 		$transaction
-		->setAmount($amount)
-		->setDescription("Pagamento do plano de assinatura")
-		->setPayee($payee)
-		->setInvoiceNumber(uniqid());
+			->setItemList($itemList)
+			->setAmount($amount)
+			->setDescription("Pagamento do plano de assinatura")
+			->setPayee($payee)
+			->setInvoiceNumber(uniqid());
 
 		$baseUrl = url('/');
 		$redirectUrls = new RedirectUrls();
