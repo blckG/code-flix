@@ -17,6 +17,7 @@ use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
+use PayPal\Exception\PayPalConnectionException;
 
 class PaymentClient
 {
@@ -116,8 +117,13 @@ class PaymentClient
 		->setPayer($payer)
 		->setRedirectUrls($redirectUrls)
 		->setTransactions([$transaction]);
-
-		$payment->create($this->apiContext);
+		try{
+			$payment->create($this->apiContext);
+		} catch(PayPalConnectionException $e){
+			\Log::error($e->getMessage(), ['data' => $e->getData()]);
+			throw $e;
+		}
+		
 		return $payment;
 	}
 }
