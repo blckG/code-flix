@@ -27,6 +27,7 @@ class Video extends Model implements Transformable, TableInterface
         'completed' => 'boolean'
     ];
 
+
     public function serie()
     {
         return $this->belongsTo(Serie::class);

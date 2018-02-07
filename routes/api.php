@@ -63,6 +63,8 @@ ApiRoute::version('v1', function () {
                 ApiRoute::get('/test', function (Request $request) {
                     return "Tenho uma assinatura válida!";
                 });
+
+                ApiRoute::resource('videos', 'VideosController', ['only' => ['index', 'show']]);
             });
 
         });

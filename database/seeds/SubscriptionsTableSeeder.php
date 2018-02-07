@@ -17,10 +17,10 @@ class SubscriptionsTableSeeder extends Seeder
         $subscription = app(SubscriptionRepository::class);
         $plans = app(PlanRepository::class)->all();
         $orders = app(OrderRepository::class)->all();
-        foreach (range(1, 20) as $element) {
+        foreach (range(1, $orders->count()) as $key => $element) {
             $subscription->create([
                 'plan_id' => $plans->random()->id,
-                'order_id' => $orders->random()->id,
+                'order_id' => $orders[$key]->id,
             ]);
         }
 

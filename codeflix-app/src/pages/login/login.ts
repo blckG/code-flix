@@ -42,11 +42,10 @@ import {Auth} from "../../providers/auth";
          .catch((error) => {
              let toast = this.toastCtrl.create({
                  message: 'E-mail e/ou senha inválidos.',
-                 duration: 3000,
+                 duration: 10000,
                  position: 'bottom',
                  cssClass: 'toast-login-error'
              });
-
              toast.present();
          });
      }

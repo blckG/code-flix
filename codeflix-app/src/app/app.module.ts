@@ -24,10 +24,14 @@ import {Http, HttpModule, XHRBackend} from "@angular/http";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {Facebook} from "@ionic-native/facebook";
+
 import {UserResource} from "../providers/resources/user.resource";
 import {PlanResource} from "../providers/resources/plan.resource";
 import { PaymentResource } from '../providers/resources/payment.resource';
+import { VideoResource } from '../providers/resources/video.resource';
+
 import {TextMaskModule} from "angular2-text-mask";
+
 
 declare var ENV: Env;
 
@@ -88,6 +92,7 @@ declare var ENV: Env;
     UserResource,
     PlanResource,
     PaymentResource,
+    VideoResource,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
         provide: AuthHttp,
@@ -102,7 +107,7 @@ declare var ENV: Env;
             return new AuthHttp(authConfig, http);
         }
     },
-    {provide: XHRBackend, useClass: DefaultXHRBackend}
+    {provide: XHRBackend, useClass: DefaultXHRBackend},
     ]
 })
 export class AppModule {

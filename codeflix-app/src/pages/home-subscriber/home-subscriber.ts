@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {AuthHttp} from 'angular2-jwt';
+import {VideoResource} from "../../providers/resources/video.resource";
 
 /**
  * Generated class for the HomeSubscriberPage page.
@@ -15,13 +15,14 @@ import {AuthHttp} from 'angular2-jwt';
  })
  export class HomeSubscriberPage {
 
- 	constructor(public navCtrl: NavController, public navParams: NavParams, public http: AuthHttp) {
+ 	videos = [];
+ 	constructor(public navCtrl: NavController, public navParams: NavParams, public videoResource: VideoResource) {
  	}
 
  	ionViewDidLoad() {
- 		this.http.get('http://localhost:8000/api/test')
- 		.toPromise()
- 		.then(() => console.log('Tenho assinatura valida!'));
+		this.videoResource
+			.latest(1)
+			.subscribe(videos => this.videos = videos);
  	}
 
  }
