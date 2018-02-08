@@ -30,15 +30,15 @@
           <ion-row>
             <ion-item>
               <ion-icon name="bookmark" item-left color="danger"></ion-icon>
-              <ion-badge item-right color="danger">
-                Category
+              <ion-badge item-right color="danger" *ngFor="let category of video.categories_name.data.name">
+                {{category}}
               </ion-badge>
             </ion-item>
 
             <ion-item>
               <ion-icon name="list-box" item-left color="secondary"></ion-icon>
-              <ion-badge item-right color="secondary">
-                Série
+              <ion-badge item-right color="secondary" *ngIf="video.serie_title">
+                {{video.serie_title.data.title}}
               </ion-badge>
             </ion-item>
 

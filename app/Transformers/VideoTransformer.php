@@ -13,7 +13,12 @@ class VideoTransformer extends TransformerAbstract
 {
     //available = facultativo
     //default = obrigatório
-    protected $availableIncludes = ['serie', 'categories'];
+    protected $availableIncludes = [
+        'serie',
+        'categories',
+        'serie_title',
+        'categories_name'
+    ];
 
     /**
      * Transform the \Video entity
@@ -42,8 +47,21 @@ class VideoTransformer extends TransformerAbstract
         return $this->item($model->serie, new SerieTransformer());
     }
 
+    public function includeSerieTitle(Video $model)
+    {
+        if(!$model->serie) {
+            return null;
+        }
+        return $this->item($model->serie, new SerieTitleTransformer());
+    }
+
     public function includeCategories(Video $model)
     {
         return $this->collection($model->categories, new CategoryTransformer());
+    }
+
+    public function includeCategoriesName(Video $model)
+    {
+        return $this->item($model->categories, new CategoryNameTransformer());
     }
 }
