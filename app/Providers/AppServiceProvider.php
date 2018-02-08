@@ -4,13 +4,8 @@ namespace CodeFlix\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Bootstrapper\Form;
-use CodeFlix\Exceptions\SubscriptionInvalidException;
 use CodeFlix\Models\Video;
-use Dingo\Api\Exception\Handler;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Validation\ValidationException;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Code\Validator\Cpf;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
@@ -73,28 +68,5 @@ class AppServiceProvider extends ServiceProvider
             },
             true
         );
-
-        $handlerApi = app(Handler::class);
-        $handlerApi->register(function (AuthenticationException $exception) {
-            return response()->json(['error' => 'Unauthenticated'], 401);
-        });
-
-        $handlerApi->register(function (JWTException $exception) {
-            return response()->json(['error' => $exception->getMessage()], 401);
-        });
-
-        $handlerApi->register(function (ValidationException $exception) {
-            return response()->json([
-                'error' => $exception->getMessage(),
-                'validation_errors' => $exception->validator->getMessageBag()->toArray()
-            ], 422);
-        });
-
-        $handlerApi->register(function (SubscriptionInvalidException $exception) {
-            return response()->json([
-                'error' => 'subscription_valid_not_found',
-                'message' => $exception->getMessage()
-            ], 403);
-        });
     }
 }
