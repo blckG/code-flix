@@ -11,6 +11,7 @@ import {AddCpfPage} from "../pages/add-cpf/add-cpf";
 import {PlansPage} from "../pages/plans/plans";
 import {PaymentPage} from "../pages/payment/payment";
 import {SubscriptionPage} from "../pages/subscription/subscription";
+import {VideoPlayPage} from "../pages/video-play/video-play";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -31,6 +32,7 @@ import { PaymentResource } from '../providers/resources/payment.resource';
 import { VideoResource } from '../providers/resources/video.resource';
 
 import {TextMaskModule} from "angular2-text-mask";
+import {StreamingMedia} from "@ionic-native/streaming-media";
 
 
 declare var ENV: Env;
@@ -47,6 +49,7 @@ declare var ENV: Env;
     PlansPage,
     AddCpfPage,
     SubscriptionPage,
+    VideoPlayPage,
     ],
     imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ declare var ENV: Env;
         {component: AddCpfPage ,name: 'AddCpfPage', segment: 'add-cpf'},
         {component: PlansPage ,name: 'PlansPage', segment: 'plans'},
         {component: PaymentPage ,name: 'PaymentPage', segment: 'plan/:plan/payment'},
-        {component: SubscriptionPage ,name: 'SubscriptionPage', segment: 'subscriptions'}
+        {component: SubscriptionPage ,name: 'SubscriptionPage', segment: 'subscriptions'},
+        {component: VideoPlayPage ,name: 'VideoPlayPage', segment: 'video/:video/play'}
         ]
     }),
     IonicStorageModule.forRoot({
@@ -80,6 +84,7 @@ declare var ENV: Env;
     PlansPage,
     AddCpfPage,
     SubscriptionPage,
+    VideoPlayPage,
     ],
     providers: [
     StatusBar,
@@ -93,6 +98,7 @@ declare var ENV: Env;
     PlanResource,
     PaymentResource,
     VideoResource,
+    StreamingMedia,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
         provide: AuthHttp,

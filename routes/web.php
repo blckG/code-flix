@@ -56,11 +56,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
             Route::post('{video}/uploads', 'VideoUploadsController@store')->name('uploads.store');
         });
 
-        Route::get('videos/{video}/file-asset', 'VideosController@fileAsset')
-            ->name('videos.file-asset');
-        Route::get('videos/{video}/thumb-asset', 'VideosController@thumbAsset')->name('videos.thumb-asset');
-        Route::get('videos/{video}/thumb-small-asset', 'VideosController@thumbSmallAsset')
-            ->name('videos.thumb-small-asset');
+
         Route::resource('videos', 'VideosController');
         Route::resource('plans', 'PlansController');
         Route::resource('web_profiles', 'PayPalWebProfilesController');
@@ -68,6 +64,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\\'], 
         Route::get('subscriptions', 'SubscriptionsController@index')->name('subscriptions.index');
 
     });
+    Route::get('videos/{video}/file-asset', 'VideosController@fileAsset')
+        ->name('videos.file-asset');
+    Route::get('videos/{video}/thumb-asset', 'VideosController@thumbAsset')->name('videos.thumb-asset');
+    Route::get('videos/{video}/thumb-small-asset', 'VideosController@thumbSmallAsset')
+        ->name('videos.thumb-small-asset');
+
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
 });

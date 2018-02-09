@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import {LoginPage} from "../pages/login/login";
 import {Auth} from "../providers/auth";
 import {Redirector} from "../providers/redirector";
@@ -22,6 +21,7 @@ export class MyApp {
   gravatarUrl: string = "https://www.gravatar.com/avatar/nouser.jpg";
 
   pages: Array<{title: string, component: any}>;
+  pagesSubscriber: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -33,10 +33,15 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Alterar senha', component: UserSettingsPage },
-      { title: 'Minhas Assinaturas', component: 'SubscriptionPage' }
+      { title: 'Alterar senha', component: UserSettingsPage }
     ];
+
+    this.pagesSubscriber = [
+        { title: 'Home', component: HomePage },
+        { title: 'Alterar senha', component: UserSettingsPage },
+        { title: 'Minhas Assinaturas', component: 'SubscriptionPage' },
+        { title: 'Área do assinante', component: 'HomeSubscriberPage' }
+    ]
 
   }
 
