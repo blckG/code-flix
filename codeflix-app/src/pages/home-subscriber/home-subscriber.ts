@@ -16,13 +16,26 @@ import {VideoResource} from "../../providers/resources/video.resource";
  export class HomeSubscriberPage {
 
  	videos = [];
+ 	page = 1;
  	constructor(public navCtrl: NavController, public navParams: NavParams, public videoResource: VideoResource) {
  	}
 
+ 	getVideos(){
+        return this.videoResource.latest(this.page)
+	}
+
  	ionViewDidLoad() {
-		this.videoResource
-			.latest(1)
+		this.getVideos()
 			.subscribe(videos => this.videos = videos);
  	}
+
+ 	doRefresh(refresh){
+ 		this.page = 1;
+        this.getVideos()
+            .subscribe(videos => {
+            	this.videos = videos;
+            	refresh.complete();
+            }, () => refresh.complete());
+	}
 
  }

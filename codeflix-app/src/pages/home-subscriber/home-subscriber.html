@@ -17,6 +17,9 @@
 
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Puxe para atualizar" refreshingText="Carregando..."></ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
     <ion-row>
       <ion-col col-12 col-sm-4 col-md-4 *ngFor="let video of videos"
@@ -45,7 +48,7 @@
 
             <ion-col>
               <ion-note>
-                {{video.created_at}}
+                {{video.created_at | amTimeAgo}}
               </ion-note>
             </ion-col>
           </ion-row>
