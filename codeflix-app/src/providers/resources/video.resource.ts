@@ -18,15 +18,16 @@ export class VideoResource {
 
     constructor(public http: AuthHttp) {}
 
-    latest(page: number): Observable<any> {
+    latest(page: number, search: string): Observable<any> {
         let params = new URLSearchParams();
         params.set('page', page+'');
         params.set('include', 'serie_title,categories_name');
+        params.set('search', search);
 
         let requestOptions = new RequestOptions({params});
         return this.http
             .get(`${ENV.APP_URL}/videos`, requestOptions)
-            .map(response => response.json().data);
+            .map(response => response.json());
     }
 
     get(id: number): Observable<any>{

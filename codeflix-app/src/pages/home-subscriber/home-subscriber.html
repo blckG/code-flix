@@ -11,8 +11,15 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Últimos vídeos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="canShowSearchBar = !canShowSearchBar">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
+  <ion-toolbar color="light" *ngIf="canShowSearchBar">
+    <ion-searchbar [(ngModel)]="search" [formControl]="formSearchControl"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
@@ -22,7 +29,7 @@
   </ion-refresher>
   <ion-grid>
     <ion-row>
-      <ion-col col-12 col-sm-4 col-md-4 *ngFor="let video of videos"
+      <ion-col col-12 col-sm-4 col-md-4 *ngFor="let video of videos.data"
                navPush="VideoPlayPage" [navParams]="{video: video.id}">
         <ion-card>
           <img [src]="video.thumb_small_url">
@@ -56,4 +63,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="canMoreVideos">
+    <ion-infinite-scroll-content loadingText="Carregando mais vídeos..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
