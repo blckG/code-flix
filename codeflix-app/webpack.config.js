@@ -87,6 +87,10 @@ var devConfig = {
             {
                 test: /\.ts$/,
                 loader: process.env.IONIC_WEBPACK_LOADER
+            },
+            {
+                test: /\.sql$/,
+                loader: 'raw-loader'
             }
         ]
     },

@@ -1,10 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {Http, HttpModule, XHRBackend} from "@angular/http";
 
+import {Env} from "../models/env";
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {ListPage} from '../pages/list/list';
+import {LoginPage} from "../pages/login/login";
 import {UserSettingsPage} from "../pages/user-settings/user-settings";
 import {HomeSubscriberPage} from "../pages/home-subscriber/home-subscriber";
 import {AddCpfPage} from "../pages/add-cpf/add-cpf";
@@ -13,27 +16,28 @@ import {PaymentPage} from "../pages/payment/payment";
 import {SubscriptionPage} from "../pages/subscription/subscription";
 import {VideoPlayPage} from "../pages/video-play/video-play";
 
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {LoginPage} from "../pages/login/login";
+
 import {JwtClient} from "../providers/jwt-client";
-import {IonicStorageModule, Storage} from "@ionic/storage";
-import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
 import {Auth} from "../providers/auth";
-import {Env} from "../models/env";
-import {Http, HttpModule, XHRBackend} from "@angular/http";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
-import {Facebook} from "@ionic-native/facebook";
+import {DB} from "../providers/sqlite/db";
 
 import {UserResource} from "../providers/resources/user.resource";
 import {PlanResource} from "../providers/resources/plan.resource";
 import { PaymentResource } from '../providers/resources/payment.resource';
 import { VideoResource } from '../providers/resources/video.resource';
 
+import {IonicStorageModule, Storage} from "@ionic/storage";
+import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
 import {TextMaskModule} from "angular2-text-mask";
 import {StreamingMedia} from "@ionic-native/streaming-media";
+import {Facebook} from "@ionic-native/facebook";
 import {MomentModule} from "angular2-moment";
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {SQLite} from "@ionic-native/sqlite";
+import {SQLitePorter} from "@ionic-native/sqlite-porter";
 
 
 declare var ENV: Env;
@@ -101,6 +105,9 @@ declare var ENV: Env;
     PaymentResource,
     VideoResource,
     StreamingMedia,
+    SQLite,
+    SQLitePorter,
+    DB,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
         provide: AuthHttp,

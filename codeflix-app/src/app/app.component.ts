@@ -9,6 +9,7 @@ import {Auth} from "../providers/auth";
 import {Redirector} from "../providers/redirector";
 import {UserSettingsPage} from "../pages/user-settings/user-settings";
 import md5 from "crypto-md5";
+import {DB} from "../providers/sqlite/db";
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,8 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               public auth: Auth,
-              public redirector: Redirector) {
+              public redirector: Redirector,
+              public db: DB) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -52,6 +54,7 @@ export class MyApp {
     });
 
     this.platform.ready().then(() => {
+      this.db.createSchema();
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
