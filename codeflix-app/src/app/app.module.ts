@@ -22,6 +22,7 @@ import {Auth} from "../providers/auth";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {DB} from "../providers/sqlite/db";
+import {UserModel} from "../providers/sqlite/user.model";
 
 import {UserResource} from "../providers/resources/user.resource";
 import {PlanResource} from "../providers/resources/plan.resource";
@@ -38,6 +39,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {SQLite} from "@ionic-native/sqlite";
 import {SQLitePorter} from "@ionic-native/sqlite-porter";
+
 
 
 declare var ENV: Env;
@@ -108,6 +110,7 @@ declare var ENV: Env;
     SQLite,
     SQLitePorter,
     DB,
+    UserModel,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
         provide: AuthHttp,
