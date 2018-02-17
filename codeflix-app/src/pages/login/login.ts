@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, ToastController} from 'ionic-angular';
 import "rxjs/add/operator/toPromise";
 import {Auth} from "../../providers/auth";
+import {AuthOffline} from "../../providers/auth-offline";
 
 
 /**
@@ -26,7 +27,8 @@ import {Auth} from "../../providers/auth";
          public menuController: MenuController,
          public navParams: NavParams,
          public toastCtrl: ToastController,
-         private auth: Auth) {
+         private auth: Auth,
+         private authOffline: AuthOffline) {
          this.menuController.enable(false);
      }
 
@@ -48,6 +50,23 @@ import {Auth} from "../../providers/auth";
              });
              toast.present();
          });
+     }
+
+    loginOffline(){
+         this.authOffline
+             .login(this.user)
+             .then(user => {
+                 this.afterLogin(user);
+             })
+             .catch(() => {
+                 let toast = this.toastCtrl.create({
+                     message: 'E-mail inválido.',
+                     duration: 3000,
+                     position: 'bottom',
+                     cssClass: 'toast-login-error'
+                 });
+                 toast.present();
+             });
      }
 
      loginFacebook(){

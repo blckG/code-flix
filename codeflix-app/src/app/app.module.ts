@@ -19,6 +19,7 @@ import {VideoPlayPage} from "../pages/video-play/video-play";
 
 import {JwtClient} from "../providers/jwt-client";
 import {Auth} from "../providers/auth";
+import {AuthOffline} from "../providers/auth-offline";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {DB} from "../providers/sqlite/db";
@@ -99,6 +100,7 @@ declare var ENV: Env;
     SplashScreen,
     JwtClient,
     Auth,
+    AuthOffline,
     JwtHelper,
     Redirector,
     Facebook,
