@@ -11,6 +11,7 @@ import {UserSettingsPage} from "../pages/user-settings/user-settings";
 import md5 from "crypto-md5";
 import {DB} from "../providers/sqlite/db";
 import {UserModel} from "../providers/sqlite/user.model";
+import {AuthOffline} from "../providers/auth-offline";
 
 @Component({
   templateUrl: 'app.html'
@@ -29,6 +30,7 @@ export class MyApp {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               public auth: Auth,
+              public authOffline: AuthOffline,
               public redirector: Redirector,
               public db: DB,
               public userModel: UserModel) {
@@ -55,20 +57,13 @@ export class MyApp {
       this.gravatar();
     });
 
-    this.platform.ready().then(() => {
-      this.db.createSchema()
-          .then(() => {
-              this.userModel.find(1)
-                  .then(user => console.log(user));
+      this.authOffline.userSubject().subscribe(user => {
+          this.user = user;
+          this.gravatar();
+      });
 
-              this.userModel.findByField('email', 'yuri@user.com')
-                  .then(resultSet => console.log(resultSet));
-            /*this.userModel.insert({
-               id: 1,
-               name: 'Yuri',
-               email: 'yuri@user.com'
-            });*/
-          });
+    this.platform.ready().then(() => {
+      this.db.createSchema();
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -82,7 +77,7 @@ export class MyApp {
 
   gravatar(){
     if(this.user) {
-        this.gravatarUrl = `https://www.gravatar.com/avatar/${md5(this.user.email, 'hex')}`;
+        this.gravatarUrl = `https://www.gravatar.com/avatar/${md5(this.user.email, 'hex')}.jpg`;
     }
   }
 

@@ -6,6 +6,7 @@ import {UserResource} from "./resources/user.resource";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {UserModel} from "./sqlite/user.model";
 import {AuthGuard} from "./auth-guard";
+import {AppConfig} from "./app-config";
 
 /*
   Generated class for the Auth provider.
@@ -23,7 +24,8 @@ import {AuthGuard} from "./auth-guard";
         public jwtClient: JwtClient,
         public fb: Facebook,
         public userResource: UserResource,
-        public userModel: UserModel) {}
+        public userModel: UserModel,
+        public appConfig: AppConfig) {}
 
     user(): Promise<Object>{
       return new Promise((resolve) => {
@@ -47,6 +49,7 @@ import {AuthGuard} from "./auth-guard";
     login({email, password}): Promise<Object> {
       return this.jwtClient.accessToken({email, password})
       .then(() => {
+        this.appConfig.setOff(false);
         return this.user().then(user => {
           this.saveUser(user);
           return user;

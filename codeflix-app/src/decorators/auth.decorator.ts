@@ -1,7 +1,8 @@
 import {appContainer} from "../app/app.container";
-import {Auth as AuthService} from "../providers/auth";
+import {AuthFactory} from "../providers/auth-factory";
 import {Nav} from "ionic-angular";
 import {LoginPage} from "../pages/login/login";
+import {AuthGuard} from "../providers/auth-guard";
 
 export const Auth = () => {
     return (target: any) => {
@@ -16,7 +17,7 @@ export const Auth = () => {
                 });
                 return false;
             }
-            let authService = appContainer().get(AuthService);
+            let authService: AuthGuard = appContainer().get(AuthFactory).get();
             return authService.check().then(isLogged => {
                if(!isLogged) {
                    setTimeout(() => {

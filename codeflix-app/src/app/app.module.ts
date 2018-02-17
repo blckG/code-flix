@@ -24,6 +24,8 @@ import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {DB} from "../providers/sqlite/db";
 import {UserModel} from "../providers/sqlite/user.model";
+import {AuthFactory} from "../providers/auth-factory";
+import {AppConfig} from "../providers/app-config";
 
 import {UserResource} from "../providers/resources/user.resource";
 import {PlanResource} from "../providers/resources/plan.resource";
@@ -101,6 +103,8 @@ declare var ENV: Env;
     JwtClient,
     Auth,
     AuthOffline,
+    AuthFactory,
+    AppConfig,
     JwtHelper,
     Redirector,
     Facebook,

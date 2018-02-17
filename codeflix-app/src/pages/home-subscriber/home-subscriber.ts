@@ -11,7 +11,7 @@ import {Auth} from "../../decorators/auth.decorator";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
- //@Auth()
+ @Auth()
  @Component({
  	selector: 'page-home-subscriber',
  	templateUrl: 'home-subscriber.html',
@@ -34,9 +34,9 @@ import {Auth} from "../../decorators/auth.decorator";
 	}
 
  	ionViewDidLoad() {
- 	    this.searchVideos();
-		this.getVideos()
-			.subscribe(videos => this.videos = videos);
+ 	    //this.searchVideos();
+		//this.getVideos()
+			//.subscribe(videos => this.videos = videos);
  	}
 
  	searchVideos(){
