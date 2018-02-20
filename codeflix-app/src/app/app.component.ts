@@ -5,13 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
-import {Auth} from "../providers/auth";
+import {Auth} from "../providers/auth/auth";
 import {Redirector} from "../providers/redirector";
 import {UserSettingsPage} from "../pages/user-settings/user-settings";
 import md5 from "crypto-md5";
 import {DB} from "../providers/sqlite/db";
 import {UserModel} from "../providers/sqlite/user.model";
-import {AuthOffline} from "../providers/auth-offline";
+import {AuthOffline} from "../providers/auth/auth-offline";
 
 @Component({
   templateUrl: 'app.html'

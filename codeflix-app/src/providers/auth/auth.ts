@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {JwtClient} from "./jwt-client";
-import {JwtPayload} from "../models/jwt-payload";
+import {JwtClient} from "../jwt-client";
+import {JwtPayload} from "../../models/jwt-payload";
 import {Facebook, FacebookLoginResponse} from "@ionic-native/facebook";
-import {UserResource} from "./resources/user.resource";
+import {UserResource} from "../resources/user.resource";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {UserModel} from "./sqlite/user.model";
+import {UserModel} from "../sqlite/user.model";
 import {AuthGuard} from "./auth-guard";
-import {AppConfig} from "./app-config";
+import {AppConfig} from "../app-config";
 
 /*
   Generated class for the Auth provider.
@@ -49,11 +49,13 @@ import {AppConfig} from "./app-config";
     login({email, password}): Promise<Object> {
       return this.jwtClient.accessToken({email, password})
       .then(() => {
-        this.appConfig.setOff(false);
-        return this.user().then(user => {
-          this.saveUser(user);
-          return user;
-        });
+        return this.appConfig.setOff(false);
+      })
+      .then(() => {
+          return this.user().then(user => {
+              this.saveUser(user);
+              return user;
+          });
       });
     }
 

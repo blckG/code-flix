@@ -1,8 +1,8 @@
 import {appContainer} from "../app/app.container";
-import {AuthFactory} from "../providers/auth-factory";
+import {AuthFactory} from "../providers/auth/auth-factory";
 import {Nav} from "ionic-angular";
 import {LoginPage} from "../pages/login/login";
-import {AuthGuard} from "../providers/auth-guard";
+import {AuthGuard} from "../providers/auth/auth-guard";
 
 export const Auth = () => {
     return (target: any) => {

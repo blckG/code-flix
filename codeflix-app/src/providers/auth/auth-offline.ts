@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {UserModel} from "./sqlite/user.model";
+import {UserModel} from "../sqlite/user.model";
 import {AuthGuard} from "./auth-guard";
 import {Storage} from "@ionic/storage";
-import {AppConfig} from "./app-config";
+import {AppConfig} from "../app-config";
 
 /*
   Generated class for the AuthOffline provider.
@@ -44,10 +44,15 @@ export class AuthOffline implements AuthGuard {
                 if (!resultset.rows.length) {
                     return Promise.reject('User not found');
                 }
-                this.appConfig.setOff(true);
                 this._user = resultset.rows.item(0);
                 this._user.subscription_valid = true;
                 this._userSubject.next(this._user);
+                return resultset;
+            })
+            .then(() => {
+                return this.appConfig.setOff(true);
+            })
+            .then(() =>{
                 return this.storage.set(this._userKey, this._user.id);
             })
             .then(() => {

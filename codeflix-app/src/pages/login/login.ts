@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, ToastController} from 'ionic-angular';
 import "rxjs/add/operator/toPromise";
-import {Auth} from "../../providers/auth";
-import {AuthOffline} from "../../providers/auth-offline";
+import {Auth} from "../../providers/auth/auth";
+import {AuthOffline} from "../../providers/auth/auth-offline";
 
 
 /**

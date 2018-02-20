@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
+import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {Http, HttpModule, XHRBackend} from "@angular/http";
 
@@ -18,13 +18,13 @@ import {VideoPlayPage} from "../pages/video-play/video-play";
 
 
 import {JwtClient} from "../providers/jwt-client";
-import {Auth} from "../providers/auth";
-import {AuthOffline} from "../providers/auth-offline";
+import {Auth} from "../providers/auth/auth";
+import {AuthOffline} from "../providers/auth/auth-offline";
 import {DefaultXHRBackend} from "../providers/default-xhr-backend";
 import {Redirector} from "../providers/redirector";
 import {DB} from "../providers/sqlite/db";
 import {UserModel} from "../providers/sqlite/user.model";
-import {AuthFactory} from "../providers/auth-factory";
+import {AuthFactory} from "../providers/auth/auth-factory";
 import {AppConfig} from "../providers/app-config";
 
 import {UserResource} from "../providers/resources/user.resource";
@@ -98,13 +98,21 @@ declare var ENV: Env;
     VideoPlayPage,
     ],
     providers: [
+    AppConfig,
+    {
+        provide: APP_INITIALIZER,
+        deps: [AppConfig],
+        useFactory(appConfig){
+            return () => appConfig.load();
+        },
+        multi: true
+    },
     StatusBar,
     SplashScreen,
     JwtClient,
     Auth,
     AuthOffline,
     AuthFactory,
-    AppConfig,
     JwtHelper,
     Redirector,
     Facebook,

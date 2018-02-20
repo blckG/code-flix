@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Auth} from "./auth";
 import {AuthOffline} from "./auth-offline";
-import {AppConfig} from "./app-config";
+import {AppConfig} from "../app-config";
 import {AuthGuard} from "./auth-guard";
 
 @Injectable()
