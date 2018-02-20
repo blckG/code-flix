@@ -22,12 +22,13 @@ export class AuthOffline implements AuthGuard {
     }
 
     user(): Promise<Object> {
-        return this.storage.get(this._userKey)
+        return this._user ? Promise.resolve(this._user) : this.storage.get(this._userKey)
             .then(id => {
                 return this.userModel.find(id)
             })
             .then(user => {
                 this._user = user;
+                this._user.subscription_valid = true;
                 this._userSubject.next(user);
                 return user;
             });

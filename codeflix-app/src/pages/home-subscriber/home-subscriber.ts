@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {VideoResource} from "../../providers/resources/video.resource";
 import {FormControl} from "@angular/forms";
 import "rxjs/add/operator/debounceTime";
 import {Auth} from "../../decorators/auth.decorator";
+import {VideoFactory} from "../../providers/videos/video-factory";
+import {VideoAdapter} from "../../providers/videos/video-adapter";
 
 /**
  * Generated class for the HomeSubscriberPage page.
@@ -26,17 +27,23 @@ import {Auth} from "../../decorators/auth.decorator";
  	canShowSearchBar: boolean = false;
  	search: string = "";
     formSearchControl = new FormControl();
- 	constructor(public navCtrl: NavController, public navParams: NavParams, public videoResource: VideoResource) {
+    videoAdapter: VideoAdapter;
+ 	constructor(
+ 		public navCtrl: NavController,
+		public navParams: NavParams,
+		public videoFactory: VideoFactory
+	) {
+ 		this.videoAdapter = this.videoFactory.get();
  	}
 
  	getVideos(){
-        return this.videoResource.latest(this.page, this.search);
+        return this.videoAdapter.latest(this.page, this.search);
 	}
 
  	ionViewDidLoad() {
- 	    //this.searchVideos();
-		//this.getVideos()
-			//.subscribe(videos => this.videos = videos);
+ 	    this.searchVideos();
+		this.getVideos()
+			.subscribe(videos => this.videos = videos);
  	}
 
  	searchVideos(){

@@ -46,7 +46,8 @@ export class MyApp {
         { title: 'Home', component: HomePage },
         { title: 'Alterar senha', component: UserSettingsPage },
         { title: 'Minhas Assinaturas', component: 'SubscriptionPage' },
-        { title: 'Área do assinante', component: 'HomeSubscriberPage' }
+        { title: 'Área do assinante', component: 'HomeSubscriberPage' },
+        { title: 'Downloads', component: 'DownloadsPage' },
     ]
 
   }

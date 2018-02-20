@@ -15,6 +15,7 @@ import {PlansPage} from "../pages/plans/plans";
 import {PaymentPage} from "../pages/payment/payment";
 import {SubscriptionPage} from "../pages/subscription/subscription";
 import {VideoPlayPage} from "../pages/video-play/video-play";
+import {DownloadsPage} from "../pages/downloads/downloads";
 
 
 import {JwtClient} from "../providers/jwt-client";
@@ -29,8 +30,13 @@ import {AppConfig} from "../providers/app-config";
 
 import {UserResource} from "../providers/resources/user.resource";
 import {PlanResource} from "../providers/resources/plan.resource";
-import { PaymentResource } from '../providers/resources/payment.resource';
-import { VideoResource } from '../providers/resources/video.resource';
+import {PaymentResource} from '../providers/resources/payment.resource';
+import {VideoResource} from '../providers/resources/video.resource';
+
+import {VideoModel} from "../providers/sqlite/video.model";
+import {VideoController} from "../providers/videos/video-controller";
+import {VideoFactory} from "../providers/videos/video-factory";
+import {VideoDownload} from "../providers/videos/video-download";
 
 import {IonicStorageModule, Storage} from "@ionic/storage";
 import {AuthConfig, AuthHttp, JwtHelper} from "angular2-jwt";
@@ -44,102 +50,108 @@ import {SQLite} from "@ionic-native/sqlite";
 import {SQLitePorter} from "@ionic-native/sqlite-porter";
 
 
-
 declare var ENV: Env;
 
 @NgModule({
     declarations: [
-    MyApp,
-    HomePage,
-    ListPage,
-    LoginPage,
-    UserSettingsPage,
-    HomeSubscriberPage,
-    PaymentPage,
-    PlansPage,
-    AddCpfPage,
-    SubscriptionPage,
-    VideoPlayPage,
+        MyApp,
+        HomePage,
+        ListPage,
+        LoginPage,
+        UserSettingsPage,
+        HomeSubscriberPage,
+        PaymentPage,
+        PlansPage,
+        AddCpfPage,
+        SubscriptionPage,
+        VideoPlayPage,
+        DownloadsPage
     ],
     imports: [
-    BrowserModule,
-    HttpModule,
-    TextMaskModule,
-    MomentModule,
-    IonicModule.forRoot(MyApp, {}, {
-        links: [
-        {component: LoginPage,name: 'LoginPage', segment: 'login'},
-        {component: HomePage,name: 'HomePage', segment: 'home'},
-        {component: UserSettingsPage ,name: 'UserSettingsPage', segment: 'user-settings'},
-        {component: HomeSubscriberPage ,name: 'HomeSubscriberPage', segment: 'home-subscriber'},
-        {component: AddCpfPage ,name: 'AddCpfPage', segment: 'add-cpf'},
-        {component: PlansPage ,name: 'PlansPage', segment: 'plans'},
-        {component: PaymentPage ,name: 'PaymentPage', segment: 'plan/:plan/payment'},
-        {component: SubscriptionPage ,name: 'SubscriptionPage', segment: 'subscriptions'},
-        {component: VideoPlayPage ,name: 'VideoPlayPage', segment: 'video/:video/play'}
-        ]
-    }),
-    IonicStorageModule.forRoot({
-        driverOrder: ['localstorage']
-    })
+        BrowserModule,
+        HttpModule,
+        TextMaskModule,
+        MomentModule,
+        IonicModule.forRoot(MyApp, {}, {
+            links: [
+                {component: LoginPage, name: 'LoginPage', segment: 'login'},
+                {component: HomePage, name: 'HomePage', segment: 'home'},
+                {component: UserSettingsPage, name: 'UserSettingsPage', segment: 'user-settings'},
+                {component: HomeSubscriberPage, name: 'HomeSubscriberPage', segment: 'home-subscriber'},
+                {component: AddCpfPage, name: 'AddCpfPage', segment: 'add-cpf'},
+                {component: PlansPage, name: 'PlansPage', segment: 'plans'},
+                {component: PaymentPage, name: 'PaymentPage', segment: 'plan/:plan/payment'},
+                {component: SubscriptionPage, name: 'SubscriptionPage', segment: 'subscriptions'},
+                {component: VideoPlayPage, name: 'VideoPlayPage', segment: 'video/:video/play'},
+                {component: DownloadsPage, name: 'DownloadsPage', segment: 'downloads'},
+            ]
+        }),
+        IonicStorageModule.forRoot({
+            driverOrder: ['localstorage']
+        })
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    LoginPage,
-    UserSettingsPage,
-    HomeSubscriberPage,
-    PaymentPage,
-    PlansPage,
-    AddCpfPage,
-    SubscriptionPage,
-    VideoPlayPage,
+        MyApp,
+        HomePage,
+        ListPage,
+        LoginPage,
+        UserSettingsPage,
+        HomeSubscriberPage,
+        PaymentPage,
+        PlansPage,
+        AddCpfPage,
+        SubscriptionPage,
+        VideoPlayPage,
+        DownloadsPage,
     ],
     providers: [
-    AppConfig,
-    {
-        provide: APP_INITIALIZER,
-        deps: [AppConfig],
-        useFactory(appConfig){
-            return () => appConfig.load();
+        AppConfig,
+        {
+            provide: APP_INITIALIZER,
+            deps: [AppConfig],
+            useFactory(appConfig) {
+                return () => appConfig.load();
+            },
+            multi: true
         },
-        multi: true
-    },
-    StatusBar,
-    SplashScreen,
-    JwtClient,
-    Auth,
-    AuthOffline,
-    AuthFactory,
-    JwtHelper,
-    Redirector,
-    Facebook,
-    UserResource,
-    PlanResource,
-    PaymentResource,
-    VideoResource,
-    StreamingMedia,
-    SQLite,
-    SQLitePorter,
-    DB,
-    UserModel,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    {
-        provide: AuthHttp,
-        deps: [Http, Storage],
-        useFactory(http, storage){
-            let authConfig = new AuthConfig({
-                headerPrefix: 'Bearer',
-                noJwtError: true,
-                noClientCheck: true,
-                tokenGetter: (() => storage.get(ENV.TOKEN_NAME))
-            });
-            return new AuthHttp(authConfig, http);
-        }
-    },
-    {provide: XHRBackend, useClass: DefaultXHRBackend},
+        StatusBar,
+        SplashScreen,
+        JwtClient,
+        Auth,
+        AuthOffline,
+        AuthFactory,
+        JwtHelper,
+        Redirector,
+        Facebook,
+        UserResource,
+        PlanResource,
+        PaymentResource,
+        VideoResource,
+        StreamingMedia,
+        SQLite,
+        SQLitePorter,
+        DB,
+        UserModel,
+        VideoModel,
+        VideoController,
+        VideoFactory,
+        VideoDownload,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        {
+            provide: AuthHttp,
+            deps: [Http, Storage],
+            useFactory(http, storage) {
+                let authConfig = new AuthConfig({
+                    headerPrefix: 'Bearer',
+                    noJwtError: true,
+                    noClientCheck: true,
+                    tokenGetter: (() => storage.get(ENV.TOKEN_NAME))
+                });
+                return new AuthHttp(authConfig, http);
+            }
+        },
+        {provide: XHRBackend, useClass: DefaultXHRBackend},
     ]
 })
 export class AppModule {

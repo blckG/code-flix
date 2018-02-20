@@ -88,7 +88,7 @@ import {AuthOffline} from "../../providers/auth/auth-offline";
 
      afterLogin(user){
          this.menuController.enable(true);
-         this.navCtrl.push(user.subscription_valid ? 'HomeSubscriberPage' : 'HomePage');
+         this.navCtrl.setRoot(user.subscription_valid ? 'HomeSubscriberPage' : 'HomePage');
      }
 
  }
