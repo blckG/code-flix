@@ -48,6 +48,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {SQLite} from "@ionic-native/sqlite";
 import {SQLitePorter} from "@ionic-native/sqlite-porter";
+import {ProgressBarComponent} from "../components/progress-bar/progress-bar";
 
 
 declare var ENV: Env;
@@ -65,7 +66,8 @@ declare var ENV: Env;
         AddCpfPage,
         SubscriptionPage,
         VideoPlayPage,
-        DownloadsPage
+        DownloadsPage,
+        ProgressBarComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,22 @@
+progress-bar {
+  ion-col{
+    background-color: #f4f4f4;
+    border: solid 1px #dcdcdc;
+    border-radius: 20px;
+    padding: 1px !important;
+  }
+
+  ion-item{
+    min-width: 30%;
+    border-radius: 20px;
+    min-height: 0 !important;
+    .item-inner{
+      border-bottom: none !important;
+    }
+
+    .label-md{
+      margin-top: 5px !important;
+      margin-bottom: 5px !important;
+    }
+  }
+}

@@ -14,11 +14,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class DownloadsPage {
 
+  progress = '0%';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DownloadsPage');
+    /*let count = 0;
+    setInterval(() => {
+        count++;
+      this.progress = `${count}%`;
+    }, 200);*/
   }
 
 }
