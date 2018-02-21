@@ -28,7 +28,9 @@ export class AuthOffline implements AuthGuard {
             })
             .then(user => {
                 this._user = user;
-                this._user.subscription_valid = true;
+                if(user) {
+                    this._user.subscription_valid = true;
+                }
                 this._userSubject.next(user);
                 return user;
             });
