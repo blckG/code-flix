@@ -6,6 +6,8 @@ export class AppConfig {
 
     private _off: boolean;
     private _appOffKey = 'app_off';
+    private _baseFilePath = '/storage/sdcard1';
+    private _appFileFolder = 'codeflix';
 
     constructor(public storage: Storage){}
 
@@ -22,5 +24,9 @@ export class AppConfig {
     load(): Promise<any> {
         return this.storage.get(this._appOffKey)
             .then(off => this._off = off);
+    }
+
+    getAppFilePath(){
+        return `${this._baseFilePath}/${this._appFileFolder}`;
     }
 }

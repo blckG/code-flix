@@ -49,6 +49,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {SQLite} from "@ionic-native/sqlite";
 import {SQLitePorter} from "@ionic-native/sqlite-porter";
 import {ProgressBarComponent} from "../components/progress-bar/progress-bar";
+import {VideoPaths} from "../providers/videos/video-paths";
 
 
 declare var ENV: Env;
@@ -139,6 +140,7 @@ declare var ENV: Env;
         VideoController,
         VideoFactory,
         VideoDownload,
+        VideoPaths,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: AuthHttp,

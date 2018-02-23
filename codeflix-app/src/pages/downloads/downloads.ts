@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {Auth} from "../../decorators/auth.decorator";
+import {VideoDownload} from "../../providers/videos/video-download";
 
 /**
  * Generated class for the DownloadsPage page.
@@ -8,15 +10,17 @@ import { NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
+@Auth()
 @Component({
   selector: 'page-downloads',
   templateUrl: 'downloads.html',
 })
 export class DownloadsPage {
 
-  progress = '0%';
+  videos: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public videoDownload: VideoDownload) {
+    this.videos = this.videoDownload.videos;
   }
 
   ionViewDidLoad() {
@@ -25,6 +29,10 @@ export class DownloadsPage {
         count++;
       this.progress = `${count}%`;
     }, 200);*/
+  }
+
+  download(index){
+    this.videoDownload.start(index);
   }
 
 }
