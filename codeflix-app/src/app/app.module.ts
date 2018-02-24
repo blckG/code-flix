@@ -50,6 +50,9 @@ import {SQLite} from "@ionic-native/sqlite";
 import {SQLitePorter} from "@ionic-native/sqlite-porter";
 import {ProgressBarComponent} from "../components/progress-bar/progress-bar";
 import {VideoPaths} from "../providers/videos/video-paths";
+import {File} from "@ionic-native/file";
+import {FileTransfer} from "@ionic-native/file-transfer";
+
 
 
 declare var ENV: Env;
@@ -141,6 +144,8 @@ declare var ENV: Env;
         VideoFactory,
         VideoDownload,
         VideoPaths,
+        File,
+        FileTransfer,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: AuthHttp,

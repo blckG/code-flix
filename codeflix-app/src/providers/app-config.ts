@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Storage} from "@ionic/storage";
+import {File} from "@ionic-native/file";
 
 @Injectable()
 export class AppConfig {
@@ -9,7 +10,9 @@ export class AppConfig {
     private _baseFilePath = '/storage/sdcard1';
     private _appFileFolder = 'codeflix';
 
-    constructor(public storage: Storage){}
+    constructor(public storage: Storage, public file: File){
+
+    }
 
 
     getOff(): boolean {
@@ -21,9 +24,18 @@ export class AppConfig {
         return this.storage.set(this._appOffKey, value);
     }
 
-    load(): Promise<any> {
-        return this.storage.get(this._appOffKey)
-            .then(off => this._off = off);
+   async load(): Promise<any> {
+        let off = await this.storage.get(this._appOffKey);
+        this._off = off;
+
+        try{
+            await this.file.resolveDirectoryUrl(`fiel://${this._baseFilePath}`);
+        } catch (e){
+            this._baseFilePath = this.file.externalApplicationStorageDirectory;
+            console.log(e);
+        }
+        //console.log(this._baseFilePath);
+        return Promise.resolve(null);
     }
 
     getAppFilePath(){

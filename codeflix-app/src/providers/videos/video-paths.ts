@@ -10,6 +10,7 @@ export class VideoPaths {
 
     constructor(public appConfig: AppConfig){
         this._videosPath = `${this.appConfig.getAppFilePath()}/${this._videosDir}`;
+        //console.log(this._videosPath);
     }
 
     getFilePath(video) {
