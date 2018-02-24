@@ -27,24 +27,34 @@ export class VideoDownload{
             })
     }
 
-    start(index){
+    start(index): Promise<any> {
         let fileTransfer = this.transfer.create();
         let video = this.videos[index];
-        fileTransfer.download(video.file_url, this.videoPaths.getFilePath(video))
-            .then(success => {
-                console.log(success);
-            }).catch(error => console.log(error));
-        this.insertVideo(this.videos[index]);
+        return fileTransfer.download(video.file_url, this.videoPaths.getFilePath(video))
+            .then(() => {
+                return this.transferThumb(video);
+            })
+            .then(() => {
+                //consultar se vídeo existe ou não
+                return this.insertVideo(this.videos[index]);
+            })
+            .catch(error => console.log(error));
+
+    }
+
+    protected transferThumb(video){
+        let fileTransfer = this.transfer.create();
+        return fileTransfer.download(video.thumb_small_url, this.videoPaths.getThumbPath(video));
     }
 
     protected insertVideo(video) {
-        this.videoModel.insert({
+        return this.videoModel.insert({
             id: video.id,
             title: video.title,
             description: video.description,
             duration: video.duration,
-            thumb_url: video.thumb_small_url,
-            file_url: video.file_url,
+            thumb_url: this.videoPaths.getThumbPath(video),
+            file_url: this.videoPaths.getFilePath(video),
             serie_title: video.serie_title,
             categories_name: JSON.stringify(video.categories_name),
             created_at: video.created_at.replace('T', ' ')
