@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, NgZone} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {VideoResource} from "../resources/video.resource";
 import {VideoModel} from "../sqlite/video.model";
@@ -14,7 +14,8 @@ export class VideoDownload{
         public videoResource: VideoResource,
         public videoModel: VideoModel,
         public videoPaths: VideoPaths,
-        public transfer: FileTransfer){}
+        public transfer: FileTransfer,
+        public zone: NgZone){}
 
     addVideo(videoId): Observable<Object> {
         return this.videoResource
@@ -30,6 +31,16 @@ export class VideoDownload{
     start(index): Promise<any> {
         let fileTransfer = this.transfer.create();
         let video = this.videos[index];
+        fileTransfer.onProgress((event: ProgressEvent) => {
+            if(event.lengthComputable) {
+                this.zone.run(() => {
+                    let progress = (event.loaded/event.total)*100;
+                    progress = Math.ceil(progress);
+                    video.progress = `${progress}%`;
+                });
+            }
+        });
+        //http://sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4
         return fileTransfer.download(video.file_url, this.videoPaths.getFilePath(video))
             .then(() => {
                 return this.transferThumb(video);
