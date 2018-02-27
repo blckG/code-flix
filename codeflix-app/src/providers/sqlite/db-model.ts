@@ -50,6 +50,7 @@ export abstract class DbModel {
             this.qb = this.qb.offset(offset);
         }
         let sqlObj = this.qb.toParam();
+        this.qb = null;
         //console.log("texto: "+sqlObj.text);
         //console.log("valores: "+sqlObj.values);
         return this.db

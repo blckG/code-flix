@@ -2,13 +2,14 @@ import {Injectable} from "@angular/core";
 import {DbModel} from "./db-model";
 import {DB} from "./db";
 import {Auth} from "../auth/auth";
+import {AuthOffline} from "../auth/auth-offline";
 
 @Injectable()
 export class VideoModel extends DbModel{
 
     protected table = 'videos'
 
-    constructor(public db: DB, public auth: Auth) {
+    constructor(public db: DB, public auth: Auth, public authOff: AuthOffline) {
         super(db);
     }
 
@@ -21,7 +22,7 @@ export class VideoModel extends DbModel{
 
     async latest(page, search){
         this.initQueryBuilder();
-        let user = await this.auth.user();
+        let user = await this.authOff.user();
         let where = "user_id = ? AND (title LIKE ? OR description LIKE ? OR serie_title LIKE ? OR categories_name LIKE ?)";
         let likeSearch = `%${search}%`;
         this.qb

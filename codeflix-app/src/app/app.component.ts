@@ -12,7 +12,6 @@ import md5 from "crypto-md5";
 import {DB} from "../providers/sqlite/db";
 import {UserModel} from "../providers/sqlite/user.model";
 import {AuthOffline} from "../providers/auth/auth-offline";
-import {VideoModel} from "../providers/sqlite/video.model";
 
 @Component({
   templateUrl: 'app.html'
@@ -34,8 +33,7 @@ export class MyApp {
               public authOffline: AuthOffline,
               public redirector: Redirector,
               public db: DB,
-              public userModel: UserModel,
-              public videoModel: VideoModel) {
+              public userModel: UserModel) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -67,7 +65,6 @@ export class MyApp {
 
     this.platform.ready().then(() => {
       this.db.createSchema();
-      this.videoModel.latest(1, "s");
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();

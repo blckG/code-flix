@@ -21,9 +21,6 @@ export class DownloadsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public videoDownload: VideoDownload) {
     this.videos = this.videoDownload.videos;
-    this.videoDownload.addVideo(1).subscribe(() => {});
-    this.videoDownload.addVideo(4).subscribe(() => {});
-    this.videoDownload.addVideo(7).subscribe(() => {});
   }
 
   ionViewDidLoad() {
