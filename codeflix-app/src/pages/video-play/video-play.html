@@ -15,7 +15,10 @@
     <ion-row>
       <ion-col col-12 *ngIf="video | async; let video">
         <ion-card class="card-video-play" (click)="play()">
-          <img [src]="video.thumb_small_url">
+          <img [src]="video.thumb_small_url | safeUrl" *ngIf="appConfig.getOff();else videoOnline">
+          <ng-template #videoOnline>
+            <img [src]="video.thumb_small_url">
+          </ng-template>
           <div>
             <ion-icon name="play"></ion-icon>
           </div>
@@ -47,7 +50,7 @@
 
             <ion-col>
               <ion-note>
-                {{video.created_at}}
+                {{video.created_at | amTimeAgo}}
               </ion-note>
             </ion-col>
           </ion-row>

@@ -32,8 +32,8 @@
       <ion-col col-12 col-sm-4 col-md-4 *ngFor="let video of videos.data"
                navPush="VideoPlayPage" [navParams]="{video: video.id}" (press)="presentActionSheet(video.id)">
         <ion-card>
-          <img [src]="video.thumb_small_url | safeUrl" *ngIf="appConfig.getOff();else elseblock">
-          <ng-template>
+          <img [src]="video.thumb_small_url | safeUrl" *ngIf="appConfig.getOff();else videoOnline">
+          <ng-template #videoOnline>
             <img [src]="video.thumb_small_url">
           </ng-template>
 

@@ -51,8 +51,8 @@ export abstract class DbModel {
         }
         let sqlObj = this.qb.toParam();
         this.qb = null;
-        //console.log("texto: "+sqlObj.text);
-        //console.log("valores: "+sqlObj.values);
+        console.log("texto: "+sqlObj.text);
+        console.log("valores: "+sqlObj.values);
         return this.db
             .executeSql(sqlObj.text, sqlObj.values)
             .then(resultset => {
